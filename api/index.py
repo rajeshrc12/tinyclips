@@ -6,8 +6,8 @@ app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")
 
 # Allow CORS from frontend URL (and development URLs)
 origins = [
-    "https://tinyclips.vercel.app/",
-    "http://localhost:3000/"
+    "https://tinyclips.vercel.app",
+    "http://localhost:3000"
 ]
 
 # Add CORS middleware
