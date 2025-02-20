@@ -6,7 +6,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/py/helloFastApi");
+      const response = await fetch("https://tinyclips.vercel.app/api/py/helloFastApi");
       const result = await response.json();
       setData(result.message);
     } catch (error) {
