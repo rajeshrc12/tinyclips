@@ -56,6 +56,10 @@ export default function Home() {
           </video>
         </div>
       )}
+      <button onClick={async()=>{
+        const response = await axios.get(`${API_URL}/`);
+        console.log(response.data)
+      }}>Get method</button>
     </div>
   );
 }
