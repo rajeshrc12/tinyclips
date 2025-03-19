@@ -6,7 +6,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Home() {
   const [text, setText] = useState("");
-  const [videoUrl, setVideoUrl] = useState("");
+  // const [videoUrl, setVideoUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
@@ -14,8 +14,13 @@ export default function Home() {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${API_URL}/video`, { script: text });
-      setVideoUrl(response.data.url);
+      const response = await axios.post(`${API_URL}/items/`, 
+        {
+          "name": "Test Item", 
+          "description": "This is a test"
+        },
+    )
+    console.log(response.data)
     } catch (error) {
       console.error("Error fetching video:", error);
     } finally {
@@ -47,7 +52,7 @@ export default function Home() {
           <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
-      {videoUrl && (
+      {/* {videoUrl && (
         <div className="mt-6 bg-white p-4 rounded-lg shadow-md w-full max-w-md">
           <h2 className="text-xl font-bold mb-2">Generated Video:</h2>
           <video controls width="100%" height="auto">
@@ -55,7 +60,7 @@ export default function Home() {
             Your browser does not support the video tag.
           </video>
         </div>
-      )}
+      )} */}
       <button onClick={async()=>{
         const response = await axios.get(`${API_URL}/`);
         console.log(response.data)
