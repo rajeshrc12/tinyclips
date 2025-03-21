@@ -61,9 +61,9 @@ export default function UserInput() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="0">Hyper-realistic</SelectItem>
-                    <SelectItem value="1">Anime</SelectItem>
-                    <SelectItem value="2">Cartoon</SelectItem>
+                    <SelectItem value="Hyper-realistic">Hyper-realistic</SelectItem>
+                    <SelectItem value="Anime">Anime</SelectItem>
+                    <SelectItem value="Cartoon">Cartoon</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -83,9 +83,9 @@ export default function UserInput() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="0">Alice</SelectItem>
-                    <SelectItem value="1">Bob</SelectItem>
-                    <SelectItem value="2">Charlie</SelectItem>
+                    <SelectItem value="Alice">Alice</SelectItem>
+                    <SelectItem value="Bob">Bob</SelectItem>
+                    <SelectItem value="Charlie">Charlie</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
