@@ -3,7 +3,7 @@ import React from "react";
 
 const DashboardPage = () => {
   return (
-    <div>
+    <div className="m-10">
       <UserInput />
     </div>
   );

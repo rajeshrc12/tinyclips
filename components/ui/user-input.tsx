@@ -12,7 +12,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 
 const formSchema = z.object({
   prompt: z.string().min(5, "Prompt must be at least 5 characters"),
-  imageStyle: z.string().min(3, "Image style must be at least 3 characters"),
+  imageStyle: z.enum(["Hyper-realistic", "Anime", "Cartoon"]),
   voiceName: z.enum(["Alice", "Bob", "Charlie"]),
   voiceSpeed: z.number().min(0.7, "Speed must be at least 0.7").max(5, "Speed must be at most 5"),
 });
@@ -20,11 +20,11 @@ const formSchema = z.object({
 export default function UserInput() {
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: { voiceSpeed: 1, imageStyle: "" }, // Ensure a default value
+    defaultValues: { voiceSpeed: 1 }, // Ensure a default value
   });
-  const [submittedData, setSubmittedData] = useState(null);
+  const [submittedData, setSubmittedData] = useState<z.infer<typeof formSchema> | null>(null);
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
     setSubmittedData(data);
     console.log("Form Submitted", data);
   };
@@ -54,14 +54,22 @@ export default function UserInput() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Image Style</FormLabel>
-                <FormControl>
-                  <Input {...field} className="w-full" />
-                </FormControl>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a image style" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="0">Hyper-realistic</SelectItem>
+                    <SelectItem value="1">Anime</SelectItem>
+                    <SelectItem value="2">Cartoon</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="voiceName"
@@ -75,16 +83,15 @@ export default function UserInput() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Alice">Alice</SelectItem>
-                    <SelectItem value="Bob">Bob</SelectItem>
-                    <SelectItem value="Charlie">Charlie</SelectItem>
+                    <SelectItem value="0">Alice</SelectItem>
+                    <SelectItem value="1">Bob</SelectItem>
+                    <SelectItem value="2">Charlie</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="voiceSpeed"
