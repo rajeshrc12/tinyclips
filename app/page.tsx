@@ -1,8 +1,13 @@
-import { Button } from '@/components/ui/button'
-import React from 'react'
+import React from "react";
+import { auth } from "@/auth";
+import SignOut from "@/components/sign-out";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth();
   return (
-    <div><Button>Click</Button></div>
-  )
+    <div>
+      Welcome {session?.user?.name}
+      <SignOut />
+    </div>
+  );
 }
