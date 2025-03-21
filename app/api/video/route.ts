@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
-
+import { mergeWords, getSubtitleWithImageIndex, splitTimeSeries } from "@/app/utils/common.js";
+import { generateAudio } from "@/app/services/replicate.js";
+import { transcribeAudio } from "@/app/services/firework.js";
 // POST handler
 export async function POST(req: Request) {
   const { prompt, imageStyle, voiceName, voiceSpeed, email } = await req.json();
@@ -23,8 +25,15 @@ export async function POST(req: Request) {
     const newVideo = await prisma.video.create({
       data: { prompt, imageStyle, voiceName, voiceSpeed, userId: user.id },
     });
+    const audioBlob = await generateAudio({ prompt, voiceName, voiceSpeed });
+    const subtitleWord = await transcribeAudio(audioBlob);
+    const subtitleSegment = mergeWords(subtitleWord);
+    const subtitlesTimeSeries = splitTimeSeries(subtitleSegment);
+    const subtitleWithImageIndex = getSubtitleWithImageIndex(subtitlesTimeSeries);
+    // for (let sub in subtitlesTimeSeries) {
 
-    return new Response(JSON.stringify(newVideo), { status: 201 });
+    // }
+    return new Response(JSON.stringify({ newVideo, subtitleSegment, subtitleWithImageIndex }), { status: 201 });
   } catch (error) {
     console.error(error);
     return new Response(JSON.stringify({ error: "Error creating video" }), { status: 500 });

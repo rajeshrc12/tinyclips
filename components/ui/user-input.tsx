@@ -11,16 +11,16 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 const formSchema = z.object({
   prompt: z.string().min(5, "Prompt must be at least 5 characters"),
   imageStyle: z.enum(["Hyper-realistic", "Anime", "Cartoon"]),
-  voiceName: z.enum(["Alice", "Bob", "Charlie"]),
+  voiceName: z.enum(["af_alloy", "am_adam", "am_fenrir"]),
   voiceSpeed: z.number().min(0.7, "Speed must be at least 0.7").max(5, "Speed must be at most 5"),
 });
 
 export default function UserInput() {
-  const router = useRouter();
+  // const router = useRouter();
   const { data: session } = useSession();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -36,7 +36,9 @@ export default function UserInput() {
       const response = await axios.post("/api/video", { ...data, email: session?.user?.email });
 
       if (response.status === 201) {
-        router.push("/videos"); // Redirect to videos page
+        console.clear();
+        console.log(response.data);
+        // router.push("/videos"); // Redirect to videos page
       } else {
         throw new Error("Unexpected response from server");
       }
@@ -102,9 +104,9 @@ export default function UserInput() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Alice">Alice</SelectItem>
-                    <SelectItem value="Bob">Bob</SelectItem>
-                    <SelectItem value="Charlie">Charlie</SelectItem>
+                    <SelectItem value="af_alloy">af_alloy</SelectItem>
+                    <SelectItem value="am_adam">am_adam</SelectItem>
+                    <SelectItem value="am_fenrir">am_fenrir</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
