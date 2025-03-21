@@ -9,7 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const formSchema = z.object({
   prompt: z.string().min(5, "Prompt must be at least 5 characters"),
   imageStyle: z.enum(["Hyper-realistic", "Anime", "Cartoon"]),
@@ -18,15 +20,32 @@ const formSchema = z.object({
 });
 
 export default function UserInput() {
+  const router = useRouter();
+  const { data: session } = useSession();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: { voiceSpeed: 1 }, // Ensure a default value
   });
-  const [submittedData, setSubmittedData] = useState<z.infer<typeof formSchema> | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    setSubmittedData(data);
-    console.log("Form Submitted", data);
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true); // Set loading state
+
+    try {
+      // Make the API call using Axios
+      const response = await axios.post("/api/video", { ...data, email: session?.user?.email });
+
+      if (response.status === 201) {
+        router.push("/videos"); // Redirect to videos page
+      } else {
+        throw new Error("Unexpected response from server");
+      }
+    } catch (err) {
+      // Handle error, show error toast
+      console.error("Error during submission", err);
+    } finally {
+      setIsSubmitting(false); // Reset loading state
+    }
   };
 
   return (
@@ -105,19 +124,18 @@ export default function UserInput() {
               </FormItem>
             )}
           />
-
-          <Button type="submit" className="w-full">
-            Submit
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? (
+              <div className="flex justify-center items-center">
+                <div className="spinner-border animate-spin h-5 w-5 mr-3 border-t-2 border-b-2 border-blue-600 rounded-full"></div>
+                Submitting...
+              </div>
+            ) : (
+              "Submit"
+            )}
           </Button>
         </form>
       </Form>
-
-      {submittedData && (
-        <div className="mt-4 p-4 border rounded bg-gray-100">
-          <h3 className="font-semibold">Submitted Data:</h3>
-          <pre className="text-sm">{JSON.stringify(submittedData, null, 2)}</pre>
-        </div>
-      )}
     </div>
   );
 }

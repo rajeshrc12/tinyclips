@@ -13,4 +13,17 @@ model User {
   email     String   @unique
   balance   Float    @default(0.0)
   createdAt DateTime @default(now())
+  Video     Video[]
+}
+
+model Video {
+  id         String   @id @default(uuid())
+  prompt     String
+  imageStyle String
+  voiceName  String
+  voiceSpeed Float
+  userId     String
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
 }
