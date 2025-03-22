@@ -4,7 +4,8 @@ import Link from "next/link";
 
 const HomeNavbar = async () => {
   return (
-    <div className="shadow border-b flex justify-between p-2 sticky top-0 left-0 bg-white">
+    <div className="shadow border-b flex justify-between items-center p-2 sticky top-0 left-0 bg-white">
+      <div className="font-bold">TinyClips</div>
       <div className="flex gap-4">
         <Link href={"/"}>
           <Button variant="ghost">Home</Button>
