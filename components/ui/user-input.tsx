@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 const formSchema = z.object({
   prompt: z.string().min(5, "Prompt must be at least 5 characters"),
   imageStyle: z.enum(["Hyper-realistic", "Anime", "Cartoon"]),
@@ -20,7 +20,7 @@ const formSchema = z.object({
 });
 
 export default function UserInput() {
-  // const router = useRouter();
+  const router = useRouter();
   const { data: session } = useSession();
   const form = useForm({
     resolver: zodResolver(formSchema),
