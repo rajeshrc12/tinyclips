@@ -24,7 +24,7 @@ export default function UserInput() {
   const { data: session } = useSession();
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: { voiceSpeed: 1 }, // Ensure a default value
+    defaultValues: { voiceSpeed: 1 }, // Ensure a default
   });
   const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
@@ -36,9 +36,8 @@ export default function UserInput() {
       const response = await axios.post("/api/video", { ...data, email: session?.user?.email });
 
       if (response.status === 201) {
-        console.clear();
         console.log(response.data);
-        // router.push("/videos"); // Redirect to videos page
+        router.push("/videos"); // Redirect to videos page
       } else {
         throw new Error("Unexpected response from server");
       }
