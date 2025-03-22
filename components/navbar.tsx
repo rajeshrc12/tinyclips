@@ -12,10 +12,10 @@ const Navbar = async () => {
   return (
     <div className="shadow border-b flex justify-between p-2 sticky top-0 left-0 bg-white">
       <div className="flex gap-4">
-        <Link href={"/"}>
+        <Link href={"/dashboard"}>
           <Button variant="ghost">Create</Button>
         </Link>
-        <Link href={"/videos"}>
+        <Link href={"/dashboard/videos"}>
           <Button variant="ghost">Videos</Button>
         </Link>
       </div>

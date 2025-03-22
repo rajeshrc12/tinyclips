@@ -3,16 +3,19 @@ import type { NextRequest } from "next/server";
 import { auth } from "@/auth";
 
 // Public routes that don't require authentication
-const publicPages: string[] = ["/about", "/contact"];
-const loginPage: string = "/login";
-const defaultLoggedRedirect: string = "/";
+// const publicPages: string[] = ["/about", "/contact"];
+// const loginPage: string = "/login";
+// const defaultLoggedRedirect: string = "/";
 
 const publicApiRoutes: string[] = ["/api/public", "/api/auth/callback/google", "/api/auth/callback/github", "/api/auth/session"];
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   try {
     const session = await auth();
-    const { pathname, origin } = req.nextUrl;
+    const {
+      pathname,
+      // origin
+    } = req.nextUrl;
 
     const isApiRoute: boolean = pathname.startsWith("/api");
 
@@ -28,13 +31,13 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     }
 
     //  Fix: Ensure redirects apply only to pages
-    if (session && (publicPages.includes(pathname) || pathname === loginPage)) {
-      return NextResponse.redirect(`${origin}${defaultLoggedRedirect}`);
-    }
+    // if (session && (publicPages.includes(pathname) || pathname === loginPage)) {
+    //   return NextResponse.redirect(`${origin}${defaultLoggedRedirect}`);
+    // }
 
-    if (!session && !publicPages.includes(pathname) && pathname !== loginPage) {
-      return NextResponse.redirect(`${origin}${loginPage}`);
-    }
+    // if (!session && !publicPages.includes(pathname) && pathname !== loginPage) {
+    //   return NextResponse.redirect(`${origin}${loginPage}`);
+    // }
 
     return NextResponse.next();
   } catch (error) {
