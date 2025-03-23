@@ -12,10 +12,10 @@ const Navbar = async () => {
   return (
     <div className="shadow border-b flex justify-between p-2 sticky top-0 left-0 z-10 bg-white">
       <div className="flex gap-4">
-        <Link href={"/"}>
+        <Link href={"/dashboard"}>
           <Button variant="ghost">Create</Button>
         </Link>
-        <Link href={"/video"}>
+        <Link href={"/dashboard/video"}>
           <Button variant="ghost">Videos</Button>
         </Link>
       </div>
@@ -29,7 +29,7 @@ const Navbar = async () => {
           </PopoverTrigger>
           <PopoverContent className="w-30">
             <SignOut />
-            <Link href={"/profile"}>
+            <Link href={"/dashboard/profile"}>
               <Button variant="ghost">Profile</Button>
             </Link>
           </PopoverContent>

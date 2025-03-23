@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 // Public routes that don't require authentication
 const publicPages: string[] = ["/about", "/contact"];
 const loginPage: string = "/login";
-const defaultLoggedRedirect: string = "/";
+const defaultLoggedRedirect: string = "/dashboard";
 
 const publicApiRoutes: string[] = ["/api/webhook/razorpay", "/api/auth/callback/google", "/api/auth/callback/github", "/api/auth/session"];
 

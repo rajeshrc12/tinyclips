@@ -31,7 +31,6 @@ const UsagePage = () => {
               <th className="p-3 border">Image Style</th>
               <th className="p-3 border">Voice Name</th>
               <th className="p-3 border">Speed</th>
-              <th className="p-3 border">User</th>
               <th className="p-3 border">Created At</th>
             </tr>
           </thead>
