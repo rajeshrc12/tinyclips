@@ -35,7 +35,7 @@ const UserInput = () => {
 
       if (response.status === 201) {
         console.log(response.data);
-        router.push("/video"); // Redirect to videos page
+        router.push("/dashboard/video"); // Redirect to videos page
       } else {
         throw new Error("Unexpected response from server");
       }
