@@ -2,28 +2,32 @@ import React from "react";
 
 const ContactPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white px-6">
-      {/* Title */}
-      <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-center">Get in Touch</h1>
-
-      {/* Contact Form */}
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg mt-6 w-full max-w-lg">
-        <form className="space-y-4">
-          <input type="text" placeholder="Your Name" className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" />
-          <input type="email" placeholder="Your Email" className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" />
-          <textarea placeholder="Your Message" rows={5} className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
-          <button className="w-full px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white text-lg font-semibold rounded-lg shadow-lg transition-all duration-300">Send Message 📩</button>
-        </form>
-      </div>
-
-      {/* Contact Info */}
-      <div className="mt-6 text-gray-400 text-center">
-        <p>
-          Email: <span className="text-white">support@tinyclips.com</span>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <div className="max-w-lg w-full bg-white shadow-lg rounded-2xl p-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Contact Us</h2>
+        <p className="text-sm text-gray-500 mb-4">
+          Last updated on <span className="font-medium">22-03-2025 22:49:50</span>
         </p>
-        <p>
-          Follow us on <span className="text-purple-400">Twitter</span> & <span className="text-purple-400">Instagram</span>
-        </p>
+        <div className="text-gray-700 space-y-3">
+          <p>
+            <span className="font-semibold">Merchant Legal Entity Name:</span> RAJESH SOMNATH CHARHAJARI
+          </p>
+          <p>
+            <span className="font-semibold">Registered Address:</span> 190 Telangi Pachha Peth, Daji Peth, Maharashtra, PIN: 413005
+          </p>
+          <p>
+            <span className="font-semibold">Operational Address:</span> 190 Telangi Pachha Peth, Daji Peth, Maharashtra, PIN: 413005
+          </p>
+          <p>
+            <span className="font-semibold">Telephone No:</span> 7620591981
+          </p>
+          <p>
+            <span className="font-semibold">E-Mail ID:</span>{" "}
+            <a href="mailto:rajesh.charhajari@gmail.com" className="text-blue-500 hover:underline">
+              rajesh.charhajari@gmail.com
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
