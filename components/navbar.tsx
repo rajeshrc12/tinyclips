@@ -29,6 +29,9 @@ const Navbar = async () => {
           </PopoverTrigger>
           <PopoverContent className="w-30">
             <SignOut />
+            <Link href={"/profile"}>
+              <Button variant="ghost">Profile</Button>
+            </Link>
           </PopoverContent>
         </Popover>
       )}

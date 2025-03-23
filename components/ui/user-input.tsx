@@ -10,7 +10,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 const formSchema = z.object({
   prompt: z.string().min(5, "Prompt must be at least 5 characters"),
@@ -19,9 +18,8 @@ const formSchema = z.object({
   voiceSpeed: z.number().min(0.7, "Speed must be at least 0.7").max(5, "Speed must be at most 5"),
 });
 
-export default function UserInput() {
+const UserInput = () => {
   const router = useRouter();
-  const { data: session } = useSession();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: { voiceSpeed: 1 }, // Ensure a default
@@ -33,11 +31,11 @@ export default function UserInput() {
 
     try {
       // Make the API call using Axios
-      const response = await axios.post("/api/video", { ...data, email: session?.user?.email });
+      const response = await axios.post("/api/video", data);
 
       if (response.status === 201) {
         console.log(response.data);
-        router.push("/videos"); // Redirect to videos page
+        router.push("/video"); // Redirect to videos page
       } else {
         throw new Error("Unexpected response from server");
       }
@@ -151,4 +149,6 @@ export default function UserInput() {
       </Form>
     </div>
   );
-}
+};
+
+export default UserInput;

@@ -7,7 +7,7 @@ const publicPages: string[] = ["/about", "/contact"];
 const loginPage: string = "/login";
 const defaultLoggedRedirect: string = "/";
 
-const publicApiRoutes: string[] = ["/api/public", "/api/auth/callback/google", "/api/auth/callback/github", "/api/auth/session"];
+const publicApiRoutes: string[] = ["/api/webhook/razorpay", "/api/auth/callback/google", "/api/auth/callback/github", "/api/auth/session"];
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   try {

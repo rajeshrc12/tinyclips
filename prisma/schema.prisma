@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  balance   Float    @default(0.0)
-  createdAt DateTime @default(now())
-  Video     Video[]
+  id          String        @id @default(uuid())
+  name        String
+  email       String        @unique
+  balance     Float         @default(0.0)
+  createdAt   DateTime      @default(now())
+  Video       Video[]
+  Transaction Transaction[] // ✅ A user can have multiple transactions
 }
 
 model Video {
@@ -26,4 +27,16 @@ model Video {
   createdAt  DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
+}
+
+model Transaction {
+  id        String   @id @default(uuid()) // Unique transaction ID
+  userId    String // Foreign key to User
+  paymentId String? // Razorpay payment ID
+  amount    Float // Payment amount
+  currency  String
+  status    String   @default("pending") // Payment status (pending, failed, successful)
+  createdAt DateTime @default(now()) // Timestamp of transaction
+
+  user User @relation(fields: [userId], references: [id]) // Relation to User
 }

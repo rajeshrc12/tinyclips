@@ -1,32 +1,43 @@
 import { prisma } from "@/lib/prisma";
-import { createVideo } from "@/app/services/video";
-// POST handler
-export async function POST(req: Request) {
-  const { prompt, imageStyle, voiceName, voiceSpeed, email } = await req.json();
+// import { createVideo } from "@/app/services/video";
+import { auth } from "@/auth";
 
-  if (!prompt || !imageStyle || !voiceName || !voiceSpeed || !email) {
-    return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+export async function POST(req: Request) {
+  const session = await auth();
+
+  const { prompt, imageStyle, voiceName, voiceSpeed } = await req.json();
+  if (!prompt || !imageStyle || !voiceName || !voiceSpeed) {
+    return Response.json({ error: "Missing required fields" }, { status: 400 });
   }
 
   try {
-    // Fetch user ID using email
+    // Ensure email is either a string or undefined
+    const userEmail = session?.user?.email ?? undefined;
+    if (!userEmail) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Fetch user ID
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { email: userEmail },
       select: { id: true },
     });
 
     if (!user) {
-      return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
+      return Response.json({ error: "User not found" }, { status: 404 });
     }
 
     // Create video with the user's ID
     const newVideo = await prisma.video.create({
       data: { prompt, imageStyle, voiceName, voiceSpeed, userId: user.id },
     });
-    createVideo(newVideo.id, prompt, imageStyle, voiceName, voiceSpeed);
-    return new Response(JSON.stringify({ newVideo }), { status: 201 });
+
+    // Call service to process video
+    // createVideo(newVideo.id, prompt, imageStyle, voiceName, voiceSpeed);
+
+    return Response.json({ newVideo }, { status: 201 });
   } catch (error) {
-    console.error(error);
-    return new Response(JSON.stringify({ error: "Error creating video" }), { status: 500 });
+    console.error("Error creating video:", error);
+    return Response.json({ error: "Error creating video" }, { status: 500 });
   }
 }
