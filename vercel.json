@@ -1,0 +1,5 @@
+{
+  "build": {
+    "ignoreCommand": "if [ \"${VERCEL_GIT_BRANCH}\" = \"dev\" ]; then exit 1; fi"
+  }
+}
