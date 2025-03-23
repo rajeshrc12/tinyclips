@@ -41,3 +41,26 @@ export async function POST(req: Request) {
     return Response.json({ error: "Error creating video" }, { status: 500 });
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const limit = parseInt(searchParams.get("limit") || "10", 10);
+    const offset = (page - 1) * limit;
+
+    const videos = await prisma.video.findMany({
+      skip: offset,
+      take: limit,
+      orderBy: { createdAt: "desc" },
+      include: { user: { select: { email: true } } }, // Fetch user's email
+    });
+
+    const total = await prisma.video.count(); // Get total video count
+
+    return Response.json({ videos, total, page, limit }, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching videos:", error);
+    return Response.json({ error: "Failed to fetch videos" }, { status: 500 });
+  }
+}

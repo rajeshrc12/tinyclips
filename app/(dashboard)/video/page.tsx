@@ -15,7 +15,7 @@ export default async function VideosPage() {
   });
 
   return (
-    <div className="w-full p-6 min-h-screen bg-gray-100">
+    <div className="w-full p-6">
       <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Your Videos</h1>
       {videos.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

@@ -15,7 +15,7 @@ const Navbar = async () => {
         <Link href={"/"}>
           <Button variant="ghost">Create</Button>
         </Link>
-        <Link href={"/videos"}>
+        <Link href={"/video"}>
           <Button variant="ghost">Videos</Button>
         </Link>
       </div>
