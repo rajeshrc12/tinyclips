@@ -10,7 +10,7 @@ const Navbar = async () => {
   const session = await auth();
 
   return (
-    <div className="shadow border-b flex justify-between p-2 sticky top-0 left-0 bg-white">
+    <div className="shadow border-b flex justify-between p-2 sticky top-0 left-0 z-10 bg-white">
       <div className="flex gap-4">
         <Link href={"/"}>
           <Button variant="ghost">Create</Button>

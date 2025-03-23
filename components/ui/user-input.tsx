@@ -50,18 +50,18 @@ export default function UserInput() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold mb-4">Generate Voice & Image</h2>
+    <div className="max-w-lg mx-auto p-6 bg-white border border-gray-200 rounded-2xl shadow-xl">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Generate Voice & Image</h2>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
             name="prompt"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Prompt</FormLabel>
+                <FormLabel className="text-gray-700">Prompt</FormLabel>
                 <FormControl>
-                  <Textarea {...field} className="w-full" />
+                  <Textarea {...field} className="w-full border-gray-300 focus:ring-2 focus:ring-blue-500 rounded-lg" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,14 +73,14 @@ export default function UserInput() {
             name="imageStyle"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Image Style</FormLabel>
+                <FormLabel className="text-gray-700">Image Style</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a image style" />
+                    <SelectTrigger className="w-full border-gray-300 focus:ring-2 focus:ring-blue-500 rounded-lg">
+                      <SelectValue placeholder="Select an image style" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-white shadow-lg border-gray-200 rounded-md">
                     <SelectItem value="Hyper-realistic">Hyper-realistic</SelectItem>
                     <SelectItem value="Anime">Anime</SelectItem>
                     <SelectItem value="Cartoon">Cartoon</SelectItem>
@@ -90,19 +90,20 @@ export default function UserInput() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="voiceName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Voice Name</FormLabel>
+                <FormLabel className="text-gray-700">Voice Name</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full border-gray-300 focus:ring-2 focus:ring-blue-500 rounded-lg">
                       <SelectValue placeholder="Select a voice" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-white shadow-lg border-gray-200 rounded-md">
                     <SelectItem value="af_alloy">af_alloy</SelectItem>
                     <SelectItem value="am_adam">am_adam</SelectItem>
                     <SelectItem value="am_fenrir">am_fenrir</SelectItem>
@@ -112,23 +113,34 @@ export default function UserInput() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="voiceSpeed"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Voice Speed</FormLabel>
+                <FormLabel className="text-gray-700">Voice Speed</FormLabel>
                 <FormControl>
-                  <Input type="number" step="0.1" {...field} onChange={(e) => field.onChange(parseFloat(e.target.value) || 1)} className="w-full" />
+                  <Input
+                    type="number"
+                    step="0.1"
+                    {...field}
+                    onChange={(e) => field.onChange(parseFloat(e.target.value) || 1)}
+                    className="w-full border-gray-300 focus:ring-2 focus:ring-blue-500 rounded-lg"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
+
+          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200" disabled={isSubmitting}>
             {isSubmitting ? (
               <div className="flex justify-center items-center">
-                <div className="spinner-border animate-spin h-5 w-5 mr-3 border-t-2 border-b-2 border-blue-600 rounded-full"></div>
+                <svg className="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24" fill="none">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                </svg>
                 Submitting...
               </div>
             ) : (
