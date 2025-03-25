@@ -2,9 +2,10 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { FaPlus } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const videos = Array(12).fill({
   id: 1,
@@ -13,6 +14,7 @@ const videos = Array(12).fill({
 });
 
 const ShowcasePage = () => {
+  const router = useRouter();
   return (
     <div className="min-h-screen">
       {/* Navbar */}
@@ -24,18 +26,30 @@ const ShowcasePage = () => {
             <span className="text-base font-bold">Tinyclips</span>
           </Link>
 
-          <Button className="bg-orange-600 hover:bg-orange-700 px-3 py-1 text-xs h-8">
-            <FaPlus className="mr-1" /> New
-          </Button>
+          <Button className="bg-orange-600 hover:bg-orange-700 px-3 py-1 text-xs h-8">Sign In</Button>
         </div>
       </nav>
 
-      {/* Video Grid - Mobile-sized items */}
       <main className="p-2">
-        <div className="grid grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 p-1 md:p-4 lg:p-10">
           {videos.map((video, index) => (
-            <div key={index} className="h-[50vh] border">
-              hello
+            <div
+              key={index}
+              onClick={() => router.push("/video")}
+              className="group cursor-pointer h-[60vh] border shadow-lg bg-white rounded-lg flex items-center justify-center overflow-hidden relative"
+            >
+              {/* Thumbnail Image */}
+              <Image src="https://raw.githubusercontent.com/rajeshrc12/tinyclips-public-files/main/images/1.png" alt="Thumbnail" layout="fill" objectFit="cover" />
+
+              {/* Play Icon (Appears on Hover) */}
+              <div className="absolute flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <FaPlay size={50} className="text-white" />
+              </div>
+
+              {/* Bottom Overlay Text (Appears on Hover) */}
+              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent text-white font-bold p-3 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                ReactJS Interview Questions
+              </div>
             </div>
           ))}
         </div>

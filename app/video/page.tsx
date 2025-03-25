@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { FaCopy, FaDownload, FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 const VideoDetailPage = () => {
   const router = useRouter();
-  const [isPlaying, setIsPlaying] = useState(false);
 
   // Sample video data - in reality you'd fetch this based on ID from router.query
   const video = {
@@ -21,10 +20,6 @@ const VideoDetailPage = () => {
     tags: ["technology", "innovation", "future"],
     createdAt: "March 25, 2023",
     duration: "2:45",
-  };
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -53,7 +48,6 @@ const VideoDetailPage = () => {
                     "https://s3.ap-northeast-1.wasabisys.com/tinyclips/video/bbca6834-59ba-4cc7-8482-04d16ebf7f30.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=UYE9V2NW6JSSZHHDKCEN%2F20250325%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20250325T121315Z&X-Amz-Expires=39600&X-Amz-Signature=6dd9115ca21d7351a12deacf7f4a09610e4b7cd2c6ee7974ee6e41584cc61ff9&X-Amz-SignedHeaders=host&x-id=GetObject"
                   }
                   controls
-                  onClick={togglePlay}
                 />
               </div>
             </div>
