@@ -87,7 +87,7 @@ const HomePage = () => {
         </motion.div>
 
         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-orange-600 text-white px-6 py-2 rounded-lg font-medium shadow-lg hover:bg-orange-700 transition-colors">
-          Get Started
+          <Link href="/login">Get Started</Link>
         </motion.button>
       </nav>
 
@@ -107,16 +107,18 @@ const HomePage = () => {
             whileTap={{ scale: 0.95 }}
             className="bg-orange-600 text-white px-8 py-3 rounded-lg font-medium text-lg shadow-lg hover:bg-orange-700 transition-colors flex items-center justify-center"
           >
-            Create Your First Video <FaArrowRight className="ml-2" />
+            <Link href="/login" className="flex items-center">
+              Create Your First Video <FaArrowRight className="ml-2" />
+            </Link>
           </motion.button>
-
+          {/* 
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-white text-orange-600 px-8 py-3 rounded-lg font-medium text-lg shadow-lg hover:bg-gray-50 transition-colors border border-orange-100"
           >
             Watch Demo
-          </motion.button>
+          </motion.button> */}
         </motion.div>
 
         <motion.div variants={fadeIn} className="relative rounded-xl overflow-hidden shadow-2xl border-8 border-white h-[80vh]">

@@ -4,6 +4,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { FaCopy, FaDownload, FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const VideoDetailPage = () => {
   const router = useRouter();
@@ -31,7 +32,9 @@ const VideoDetailPage = () => {
             <FaArrowLeft className="mr-2" />
             Back to Gallery
           </button>
-          <Button className="bg-orange-600 hover:bg-orange-700 px-3 py-1 text-sm">Create New</Button>
+          <Link href={"/login"}>
+            <Button className="bg-orange-600 hover:bg-orange-700 px-3 py-1 text-sm">Login</Button>
+          </Link>
         </div>
       </nav>
 
