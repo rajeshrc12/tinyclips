@@ -78,12 +78,12 @@ const ProfilePage = () => {
         <div className="space-y-3 mb-6">
           <div className="flex items-center justify-between text-gray-700">
             <span className="font-medium">👤 Name:</span>
-            <span className="text-gray-900 font-semibold">{name || "N/A"}</span>
+            <span className="text-gray-900 font-semibold">{name || "Loading..."}</span>
           </div>
 
           <div className="flex items-center justify-between text-gray-700">
             <span className="font-medium">📧 Email:</span>
-            <span className="text-gray-900 font-semibold">{email || "N/A"}</span>
+            <span className="text-gray-900 font-semibold">{email || "Loading..."}</span>
           </div>
 
           <div className="flex flex-col items-center bg-blue-100 text-blue-700 font-bold text-xl rounded-lg p-4">

@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-// import { createVideo } from "@/app/services/video";
+import { createVideo } from "@/app/services/video";
 import { auth } from "@/auth";
 
 export async function POST(req: Request) {
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     });
 
     // Call service to process video
-    // createVideo(newVideo.id, prompt, imageStyle, voiceName, voiceSpeed);
+    createVideo(newVideo.id, prompt, imageStyle, voiceName, voiceSpeed);
 
     return Response.json({ newVideo }, { status: 201 });
   } catch (error) {

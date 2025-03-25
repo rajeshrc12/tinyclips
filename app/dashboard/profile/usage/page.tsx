@@ -9,7 +9,7 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const UsagePage = () => {
   const [page, setPage] = useState(1);
-  const limit = 10; // Number of videos per page
+  const limit = 5; // Number of videos per page
 
   const { data, error, isLoading } = useSWR(`/api/video?page=${page}&limit=${limit}`, fetcher);
 
@@ -27,6 +27,7 @@ const UsagePage = () => {
         <table className="w-full border-collapse border border-gray-300">
           <thead>
             <tr className="bg-gray-200 text-gray-700">
+              <th className="p-3 border">Sr</th>
               <th className="p-3 border">Prompt</th>
               <th className="p-3 border">Image Style</th>
               <th className="p-3 border">Voice Name</th>
@@ -35,9 +36,10 @@ const UsagePage = () => {
             </tr>
           </thead>
           <tbody>
-            {videos?.map((video: Video) => (
+            {videos?.map((video: Video, index: number) => (
               <tr key={video.id} className="text-center border">
-                <td className="p-3 border">{video.prompt}</td>
+                <td className="p-3 border">{index + 1}</td>
+                <td className="p-3 border">{video.prompt.slice(0, 50)}</td>
                 <td className="p-3 border">{video.imageStyle}</td>
                 <td className="p-3 border">{video.voiceName}</td>
                 <td className="p-3 border">{video.voiceSpeed}</td>

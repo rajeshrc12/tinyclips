@@ -28,7 +28,7 @@ const TransactionsTable = () => {
         <table className="min-w-full bg-white">
           <thead>
             <tr className="bg-gray-200 text-gray-700 uppercase text-sm leading-normal">
-              <th className="py-3 px-6 text-left">Transaction ID</th>
+              <th className="py-3 px-6 text-left">Sr</th>
               <th className="py-3 px-6 text-left">Amount</th>
               <th className="py-3 px-6 text-left">Currency</th>
               <th className="py-3 px-6 text-left">Status</th>
@@ -36,9 +36,9 @@ const TransactionsTable = () => {
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm">
-            {transactions.map((tx: Transaction) => (
+            {transactions.map((tx: Transaction, index: number) => (
               <tr key={tx.id} className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="py-3 px-6">{tx.id}</td>
+                <td className="py-3 px-6">{index + 1}</td>
                 <td className="py-3 px-6 font-bold text-green-600">₹{tx.amount}</td>
                 <td className="py-3 px-6">{tx.currency}</td>
                 <td className={`py-3 px-6 ${tx.status === "successful" ? "text-green-600" : "text-red-600"}`}>{tx.status}</td>

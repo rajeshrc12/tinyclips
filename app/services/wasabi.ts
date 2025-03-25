@@ -27,3 +27,23 @@ export const uploadMedia = async (imageBlob: Blob, name: string) => {
     console.error("Error uploading file:", error);
   }
 };
+
+export const getPresignedUrl = async (fileName: string) => {
+  try {
+    const params: AWS.S3.GetObjectRequest = {
+      Bucket: process.env.WASABI_BUCKET_NAME as string,
+      Key: fileName, // File name in Wasabi
+    };
+
+    // Generate the pre-signed URL with expiration time
+    const signedUrl = s3.getSignedUrl("getObject", {
+      ...params,
+      Expires: 60 * 5, // URL expires in 5 minutes
+    });
+
+    console.log("Generated pre-signed URL:", signedUrl);
+    return signedUrl;
+  } catch (error) {
+    console.error("Error generating pre-signed URL:", error);
+  }
+};

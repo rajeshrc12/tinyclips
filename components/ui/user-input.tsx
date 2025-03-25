@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 const formSchema = z.object({
   prompt: z.string().min(5, "Prompt must be at least 5 characters"),
   imageStyle: z.enum(["Hyper-realistic", "Anime", "Cartoon"]),
-  voiceName: z.enum(["af_alloy", "am_adam", "am_fenrir"]),
+  voiceName: z.enum(["af_alloy", "am_adam"]),
   voiceSpeed: z.number().min(0.7, "Speed must be at least 0.7").max(5, "Speed must be at most 5"),
 });
 
@@ -104,7 +104,6 @@ const UserInput = () => {
                   <SelectContent className="bg-white shadow-lg border-gray-200 rounded-md">
                     <SelectItem value="af_alloy">af_alloy</SelectItem>
                     <SelectItem value="am_adam">am_adam</SelectItem>
-                    <SelectItem value="am_fenrir">am_fenrir</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
