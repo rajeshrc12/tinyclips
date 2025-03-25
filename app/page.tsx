@@ -2,7 +2,8 @@
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
-import { FaPlay, FaMicrophone, FaPalette, FaMagic, FaArrowRight, FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaMicrophone, FaPalette, FaMagic, FaArrowRight, FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
+import Link from "next/link";
 
 const HomePage = () => {
   const steps = [
@@ -62,32 +63,30 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100">
       {/* Navigation */}
       <nav className="py-6 px-4 sm:px-12 flex justify-between items-center">
-        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="flex items-center">
-          <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center mr-3">
-            <FaPlay className="text-white text-lg" />
-          </div>
-          <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Tinyclips</span>
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="flex items-center gap-3">
+          <Image src={"https://raw.githubusercontent.com/rajeshrc12/tinyclips-public-files/main/images/logo.png"} height={30} width={30} alt="Logo.png" />
+          <span className="text-2xl font-bold  bg-clip-text text-black">Tinyclips</span>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="hidden md:flex space-x-8">
-          <a href="#features" className="font-medium text-gray-700 hover:text-indigo-600">
+          <a href="#features" className="font-medium text-gray-700 hover:text-orange-600">
             Features
           </a>
-          <a href="#how-it-works" className="font-medium text-gray-700 hover:text-indigo-600">
+          <a href="#how-it-works" className="font-medium text-gray-700 hover:text-orange-600">
             How It Works
           </a>
-          <a href="#samples" className="font-medium text-gray-700 hover:text-indigo-600">
-            Samples
-          </a>
-          <a href="#contact" className="font-medium text-gray-700 hover:text-indigo-600">
+          <a href="#contact" className="font-medium text-gray-700 hover:text-orange-600">
             Contact
           </a>
+          <Link href="/showcase" className="font-medium text-gray-700 hover:text-orange-600">
+            Showcase
+          </Link>
         </motion.div>
 
-        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium shadow-lg hover:bg-indigo-700 transition-colors">
+        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-orange-600 text-white px-6 py-2 rounded-lg font-medium shadow-lg hover:bg-orange-700 transition-colors">
           Get Started
         </motion.button>
       </nav>
@@ -95,7 +94,7 @@ const HomePage = () => {
       {/* Hero Section */}
       <motion.section initial="hidden" animate="show" variants={container} className="py-16 px-4 sm:px-12 text-center max-w-6xl mx-auto">
         <motion.h1 variants={item} className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-          Transform Your <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Scripts</span> into Engaging Videos
+          Transform Your <span className="bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent">Scripts</span> into Engaging Videos
         </motion.h1>
 
         <motion.p variants={item} className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
@@ -106,7 +105,7 @@ const HomePage = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-medium text-lg shadow-lg hover:bg-indigo-700 transition-colors flex items-center justify-center"
+            className="bg-orange-600 text-white px-8 py-3 rounded-lg font-medium text-lg shadow-lg hover:bg-orange-700 transition-colors flex items-center justify-center"
           >
             Create Your First Video <FaArrowRight className="ml-2" />
           </motion.button>
@@ -114,7 +113,7 @@ const HomePage = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-white text-indigo-600 px-8 py-3 rounded-lg font-medium text-lg shadow-lg hover:bg-gray-50 transition-colors border border-indigo-100"
+            className="bg-white text-orange-600 px-8 py-3 rounded-lg font-medium text-lg shadow-lg hover:bg-gray-50 transition-colors border border-orange-100"
           >
             Watch Demo
           </motion.button>
@@ -141,17 +140,17 @@ const HomePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: <FaMagic className="text-3xl text-indigo-600" />,
+                icon: <FaMagic className="text-3xl text-orange-600" />,
                 title: "AI-Powered Visuals",
                 description: "Automatically generate relevant images for your script using advanced AI models.",
               },
               {
-                icon: <FaMicrophone className="text-3xl text-indigo-600" />,
+                icon: <FaMicrophone className="text-3xl text-orange-600" />,
                 title: "Natural Voiceovers",
                 description: "Choose from multiple natural-sounding voices in different languages and accents.",
               },
               {
-                icon: <FaPalette className="text-3xl text-indigo-600" />,
+                icon: <FaPalette className="text-3xl text-orange-600" />,
                 title: "Custom Styles",
                 description: "Select from various artistic styles to match your video's theme and mood.",
               },
@@ -165,7 +164,7 @@ const HomePage = () => {
                 whileHover={{ y: -10 }}
                 className="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow"
               >
-                <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">{feature.icon}</div>
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6">{feature.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </motion.div>
@@ -175,7 +174,7 @@ const HomePage = () => {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 px-4 sm:px-12 bg-indigo-50">
+      <section id="how-it-works" className="py-20 px-4 sm:px-12 bg-orange-50">
         <div className="max-w-6xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }} className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
@@ -183,7 +182,7 @@ const HomePage = () => {
           </motion.div>
 
           <div className="relative">
-            <div className="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-indigo-200 transform -translate-x-1/2"></div>
+            <div className="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-orange-200 transform -translate-x-1/2"></div>
 
             {steps.map((step, index) => (
               <motion.div
@@ -195,7 +194,7 @@ const HomePage = () => {
                 className={`mb-12 md:mb-16 flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center`}
               >
                 <div className="md:w-1/2 mb-6 md:mb-0 md:px-8">
-                  <div className="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4 mx-auto md:mx-0">{step.icon}</div>
+                  <div className="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4 mx-auto md:mx-0">{step.icon}</div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-3 text-center md:text-left">{step.title}</h3>
                   <p className="text-gray-600 text-center md:text-left">{step.description}</p>
                 </div>
@@ -210,37 +209,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Sample Videos Section */}
-      <section id="samples" className="py-20 px-4 sm:px-12 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }} className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Sample Videos</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">See what TinyClips can create from simple scripts</p>
-          </motion.div>
-
-          <motion.div initial="hidden" whileInView="show" variants={container} viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <motion.div key={item} whileHover={{ y: -10 }} className="bg-gray-50 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                <div className="relative">
-                  <Image src={`https://raw.githubusercontent.com/rajeshrc12/tinyclips-public-files/main/images/1.png`} height={300} width={400} className="w-full h-auto" alt={`Sample ${item}`} />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div whileHover={{ scale: 1.1 }} className="w-16 h-16 bg-indigo-600 bg-opacity-80 rounded-full flex items-center justify-center cursor-pointer">
-                      <FaPlay className="text-white text-xl" />
-                    </motion.div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">Sample Video {item}</h3>
-                  <p className="text-gray-600">Created from a simple script about {["technology", "nature", "business", "health", "education", "travel"][item - 1]}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-12 bg-gradient-to-r from-indigo-600 to-purple-600">
+      <section className="py-20 px-4 sm:px-12 bg-gradient-to-r from-orange-600 to-amber-600">
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
@@ -252,15 +222,15 @@ const HomePage = () => {
             Ready to Transform Your Scripts into Videos?
           </motion.h2>
 
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} viewport={{ once: true }} className="text-xl text-indigo-100 mb-10">
-            Join thousands of creators who are saving time and boosting engagement with TinyClips.
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} viewport={{ once: true }} className="text-xl text-orange-100 mb-10">
+            Join thousands of creators who are saving time and boosting engagement with Tinyclips.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} viewport={{ once: true }}>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-white text-indigo-600 px-8 py-4 rounded-lg font-medium text-lg shadow-lg hover:bg-gray-50 transition-colors flex items-center mx-auto"
+              className="bg-white text-orange-600 px-8 py-4 rounded-lg font-medium text-lg shadow-lg hover:bg-gray-50 transition-colors flex items-center mx-auto"
             >
               Get Started for Free <FaArrowRight className="ml-2" />
             </motion.button>
@@ -287,7 +257,7 @@ const HomePage = () => {
                   <input
                     type="text"
                     id="name"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="Your name"
                   />
                 </div>
@@ -298,7 +268,7 @@ const HomePage = () => {
                   <input
                     type="email"
                     id="email"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -309,7 +279,7 @@ const HomePage = () => {
                   <textarea
                     id="message"
                     rows={5}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                     placeholder="Your message..."
                   ></textarea>
                 </div>
@@ -317,19 +287,19 @@ const HomePage = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  className="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium shadow-md hover:bg-indigo-700 transition-colors w-full"
+                  className="bg-orange-600 text-white px-6 py-3 rounded-lg font-medium shadow-md hover:bg-orange-700 transition-colors w-full"
                 >
                   Send Message
                 </motion.button>
               </form>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }} className="bg-indigo-50 p-8 rounded-xl">
+            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }} className="bg-orange-50 p-8 rounded-xl">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-4 mt-1">
-                    <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                    <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -345,8 +315,8 @@ const HomePage = () => {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-4 mt-1">
-                    <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                    <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -362,8 +332,8 @@ const HomePage = () => {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-4 mt-1">
-                    <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                    <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
@@ -379,13 +349,13 @@ const HomePage = () => {
                 <h4 className="text-lg font-medium text-gray-900 mb-4">Follow Us</h4>
                 <div className="flex space-x-4">
                   <motion.a whileHover={{ y: -3 }} href="#" className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-50 transition-colors">
-                    <FaTwitter className="text-indigo-600 text-xl" />
+                    <FaTwitter className="text-orange-600 text-xl" />
                   </motion.a>
                   <motion.a whileHover={{ y: -3 }} href="#" className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-50 transition-colors">
-                    <FaGithub className="text-indigo-600 text-xl" />
+                    <FaGithub className="text-orange-600 text-xl" />
                   </motion.a>
                   <motion.a whileHover={{ y: -3 }} href="#" className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-50 transition-colors">
-                    <FaLinkedin className="text-indigo-600 text-xl" />
+                    <FaLinkedin className="text-orange-600 text-xl" />
                   </motion.a>
                 </div>
               </div>
@@ -399,11 +369,9 @@ const HomePage = () => {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="flex items-center mb-4">
-                <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center mr-2">
-                  <FaPlay className="text-white text-sm" />
-                </div>
-                <span className="text-xl font-bold">TinyClips</span>
+              <div className="flex items-center mb-4 gap-3">
+                <Image src={"https://raw.githubusercontent.com/rajeshrc12/tinyclips-public-files/main/images/logo.png"} height={30} width={30} alt="Logo.png" />
+                <span className="text-xl font-bold">Tinyclips</span>
               </div>
               <p className="text-gray-400">Transforming scripts into engaging videos with the power of AI.</p>
             </div>
@@ -488,7 +456,7 @@ const HomePage = () => {
           </div>
 
           <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 mb-4 md:mb-0">© 2025 TinyClips. All rights reserved.</p>
+            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Tinyclips. All rights reserved.</p>
             <div className="flex space-x-6">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 Privacy Policy
