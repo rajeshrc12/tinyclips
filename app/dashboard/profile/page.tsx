@@ -10,7 +10,7 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data.user);
 const ProfilePage = () => {
   const [amount, setAmount] = useState(1);
   const [loading, setLoading] = useState(false);
-
+  const [currency, setCurrency] = useState("INR");
   // Fetch user data (email & balance)
   const { data, mutate } = useSWR("/api/user", fetcher);
   const { balance, name, email } = data || {};
@@ -26,7 +26,7 @@ const ProfilePage = () => {
       const response = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount }), // ✅ Removed email & name
+        body: JSON.stringify({ amount, currency }), // ✅ Removed email & name
       });
 
       if (!response.ok) throw new Error("Failed to create order");
@@ -51,7 +51,7 @@ const ProfilePage = () => {
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
       amount: amount * 100,
-      currency: "INR",
+      currency,
       name: "Tinyclips Topup",
       description: "Tinyclips Topup",
       order_id: orderId,
@@ -88,20 +88,27 @@ const ProfilePage = () => {
 
           <div className="flex flex-col items-center bg-blue-100 text-blue-700 font-bold text-xl rounded-lg p-4">
             <span>Wallet Balance</span>
-            <span className="text-2xl">{balance !== undefined ? `₹${balance}` : "Loading..."}</span>
+            <span className="text-2xl">{balance !== undefined ? `$${balance}` : "Loading..."}</span>
           </div>
         </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Enter Amount</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(Number(e.target.value))}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
+        <div className="flex gap-2">
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">Currency</label>
+            <select value={currency} onChange={(e) => setCurrency(e.target.value)} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <option value="INR">INR</option>
+              <option value="USD">USD</option>
+            </select>
+          </div>
+          <div className="mb-4 grow-1">
+            <label className="block text-gray-700 font-medium mb-2">Enter Amount</label>
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
         </div>
-
         <button
           onClick={createOrder}
           disabled={loading}

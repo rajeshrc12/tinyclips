@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     });
 
     // Call service to process video
-    createVideo(newVideo.id, prompt, imageStyle, voiceName, voiceSpeed);
+    createVideo(user.id, newVideo.id, prompt, imageStyle, voiceName, voiceSpeed);
 
     return Response.json({ newVideo }, { status: 201 });
   } catch (error) {

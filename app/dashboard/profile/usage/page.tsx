@@ -32,6 +32,8 @@ const UsagePage = () => {
               <th className="p-3 border">Image Style</th>
               <th className="p-3 border">Voice Name</th>
               <th className="p-3 border">Speed</th>
+              <th className="p-3 border">Image count</th>
+              <th className="p-3 border">Chagres</th>
               <th className="p-3 border">Created At</th>
             </tr>
           </thead>
@@ -43,7 +45,9 @@ const UsagePage = () => {
                 <td className="p-3 border">{video.imageStyle}</td>
                 <td className="p-3 border">{video.voiceName}</td>
                 <td className="p-3 border">{video.voiceSpeed}</td>
-                <td className="p-3 border">{new Date(video.createdAt).toLocaleString()}</td>
+                <td className="p-3 border">{video.imageCount}</td>
+                <td className="p-3 border">{video.imageCount * 0.00065}</td>
+                <td className="p-3 border">{new Date(video.createdAt).toISOString().split("T")[0]}</td>
               </tr>
             ))}
           </tbody>
