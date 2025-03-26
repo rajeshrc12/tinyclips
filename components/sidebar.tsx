@@ -2,39 +2,31 @@
 
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { FaUser, FaTachometerAlt, FaCog, FaBell, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
+import { FaUser, FaTachometerAlt, FaSignOutAlt, FaVideo, FaDollarSign } from "react-icons/fa";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 const Sidebar = () => {
-  const router = useRouter();
-  console.log(router);
-  const currentPath = "/dashboard";
-
+  const currentPath = usePathname();
   const navItems = [
     {
-      name: "Dashboard",
+      name: "Creat Shorts",
       path: "/dashboard",
+      icon: <FaVideo className="h-4 w-4" />,
+    },
+    {
+      name: "Overview",
+      path: "/dashboard/overview",
       icon: <FaTachometerAlt className="h-4 w-4" />,
     },
     {
       name: "Profile",
-      path: "/profile",
+      path: "/dashboard/profile",
       icon: <FaUser className="h-4 w-4" />,
     },
     {
-      name: "Notifications",
-      path: "/notifications",
-      icon: <FaBell className="h-4 w-4" />,
-    },
-    {
-      name: "Settings",
-      path: "/settings",
-      icon: <FaCog className="h-4 w-4" />,
-    },
-    {
-      name: "Help",
-      path: "/help",
-      icon: <FaQuestionCircle className="h-4 w-4" />,
+      name: "Payments",
+      path: "/dashboard/payment",
+      icon: <FaDollarSign className="h-4 w-4" />,
     },
   ];
 
