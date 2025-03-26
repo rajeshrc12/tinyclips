@@ -19,8 +19,8 @@ const Sidebar = () => {
       icon: <FaTachometerAlt className="h-4 w-4" />,
     },
     {
-      name: "Profile",
-      path: "/dashboard/profile",
+      name: "My videos",
+      path: "/dashboard/video",
       icon: <FaUser className="h-4 w-4" />,
     },
     {
