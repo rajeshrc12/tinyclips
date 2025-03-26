@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import useSWR from "swr";
 import { IMAGE_STYLES } from "@/constants/imageStyles";
 import { VOICE_NAMES } from "@/constants/voiceNames";
+import { toast } from "sonner";
 
 interface UserInputProps {
   handleImageStyle: (style: string) => void;
@@ -29,12 +30,18 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data.user);
 
 const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
   const router = useRouter();
-  const { data } = useSWR("/api/user", fetcher);
+  const { data } = useSWR("/api/dashboard/user", fetcher);
   const { balance } = data || {};
   const isBalanceEmpty = Math.ceil(balance) <= 0;
+  const defaultValues = {
+    prompt: "",
+    imageStyle: "hyper" as keyof typeof IMAGE_STYLES, // or set a default style
+    voiceName: "af_alloy" as keyof typeof VOICE_NAMES, // or set a default voice
+    voiceSpeed: 1,
+  };
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: { voiceSpeed: 1 }, // Ensure a default
+    defaultValues,
   });
   const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
@@ -42,11 +49,16 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
     setIsSubmitting(true); // Set loading state
     try {
       // Make the API call using Axios
-      const response = await axios.post("/api/video", data);
+      const response = await axios.post("/api/dashboard/video", data);
 
       if (response.status === 201) {
-        console.log(response.data);
-        router.push("/dashboard/video"); // Redirect to videos page
+        toast("Video creation added in queue", {
+          description: "check your my video section",
+          action: {
+            label: "View",
+            onClick: () => router.push("/dashboard/video"),
+          },
+        });
       } else {
         console.log("Unexpected response from server");
       }
@@ -54,6 +66,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
       // Handle error, show error toast
       console.error("Error during submission", err);
     } finally {
+      form.reset(defaultValues);
       setIsSubmitting(false); // Reset loading state
     }
   };
@@ -83,6 +96,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
               <FormItem>
                 <FormLabel className="text-gray-700">Image Style</FormLabel>
                 <Select
+                  defaultValue={field.value}
                   disabled={isBalanceEmpty || isSubmitting}
                   onValueChange={(e) => {
                     handleImageStyle(e);

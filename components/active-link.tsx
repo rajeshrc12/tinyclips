@@ -13,8 +13,7 @@ interface ActiveLinkProps {
 
 export default function ActiveLink({ href, icon, name }: ActiveLinkProps) {
   const pathname = usePathname();
-  const isActive = pathname.startsWith(href);
-
+  const isActive = pathname === href;
   return (
     <Link href={href} passHref>
       <Button className={`w-full justify-start px-4 py-3 rounded-md transition-all ${isActive ? "bg-orange-50 text-orange-600 font-medium" : "text-gray-600 hover:bg-gray-100"}`} variant="ghost">

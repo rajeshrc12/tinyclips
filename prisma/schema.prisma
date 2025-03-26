@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String    @id @default(uuid())
+  name        String
+  email       String    @unique
+  balance     Float     @default(0.0)
+  createdAt   DateTime  @default(now())
+  Video       Video[]
+  Transaction Payment[] // ✅ A user can have multiple transactions
+}
+
+model Video {
+  id         String   @id @default(uuid())
+  prompt     String
+  imageStyle String
+  voiceName  String
+  voiceSpeed Float
+  imageCount Int      @default(0)
+  userId     String
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Payment {
+  id        String   @id @default(uuid()) // Unique transaction ID
+  userId    String // Foreign key to User
+  paymentId String? // Razorpay payment ID
+  amount    Float // Payment amount
+  currency  String
+  status    String   @default("pending") // Payment status (pending, failed, successful)
+  createdAt DateTime @default(now()) // Timestamp of transaction
+
+  user User @relation(fields: [userId], references: [id]) // Relation to User
+}
