@@ -38,18 +38,18 @@ export async function GET(req: Request) {
     const limit = parseInt(searchParams.get("limit") || "10", 10);
     const offset = (page - 1) * limit;
 
-    const videos = await prisma.video.findMany({
+    const videos = await prisma.payment.findMany({
       skip: offset,
       take: limit,
       orderBy: { createdAt: "desc" },
       where: { userId: id },
     });
 
-    const total = await prisma.video.count(); // Get total video count
+    const total = await prisma.payment.count(); // Get total payment count
 
     return Response.json({ videos, total, page, limit }, { status: 200 });
   } catch (error) {
-    console.error("Error fetching videos:", error);
-    return Response.json({ error: "Failed to fetch videos" }, { status: 500 });
+    console.error("Error fetching payments:", error);
+    return Response.json({ error: "Failed to fetch payments" }, { status: 500 });
   }
 }
