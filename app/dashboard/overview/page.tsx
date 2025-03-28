@@ -1,11 +1,18 @@
-import { Button } from "@/components/ui/button";
+import { auth } from "@/auth";
+import Payment from "@/components/payment";
 import React from "react";
-import { FaWallet, FaChartLine, FaVideo, FaPlus, FaUser } from "react-icons/fa";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FaUser } from "react-icons/fa";
 
-const OverviewPage = () => {
-  const userName = "John Doe";
-  const userEmail = "john.doe@example.com";
+const OverviewPage = async () => {
+  const session = await auth();
 
+  if (!session?.user)
+    return (
+      <div className="absolute inset-0 flex justify-center items-center">
+        <AiOutlineLoading3Quarters className="w-8 h-8 animate-spin text-gray-500" />
+      </div>
+    );
   return (
     <div className="space-y-6 p-4">
       {/* User Profile Section */}
@@ -15,45 +22,12 @@ const OverviewPage = () => {
             <FaUser className="text-amber-600 text-xl" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-black">{userName}</h2>
-            <p className="text-gray-600">{userEmail}</p>
+            <h2 className="text-xl font-bold text-black">{session?.user.name}</h2>
+            <p className="text-gray-600">{session?.user.email}</p>
           </div>
-        </div>
-        <Button className="bg-orange-600 hover:bg-orange-700 flex items-center gap-2 text-white">
-          <FaPlus />
-          <span>Add balance</span>
-        </Button>
-      </div>
-
-      {/* Stats Cards Section */}
-      <div className="flex flex-wrap gap-4">
-        {/* Balance Card */}
-        <div className="border border-amber-200 bg-amber-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow w-full sm:w-auto min-w-[200px] flex-1">
-          <div className="flex items-center gap-2 text-black font-medium mb-1">
-            <FaWallet className="text-lg text-amber-600" />
-            <span>Balance</span>
-          </div>
-          <div className="text-2xl font-bold text-black">$100</div>
-        </div>
-
-        {/* Total Usage Card */}
-        <div className="border border-orange-200 bg-orange-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow w-full sm:w-auto min-w-[200px] flex-1">
-          <div className="flex items-center gap-2 text-black font-medium mb-1">
-            <FaChartLine className="text-lg text-orange-600" />
-            <span>Total Usage</span>
-          </div>
-          <div className="text-2xl font-bold text-black">$10</div>
-        </div>
-
-        {/* Total Video Card */}
-        <div className="border border-red-200 bg-red-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow w-full sm:w-auto min-w-[200px] flex-1">
-          <div className="flex items-center gap-2 text-black font-medium mb-1">
-            <FaVideo className="text-lg text-red-600" />
-            <span>Total Videos</span>
-          </div>
-          <div className="text-2xl font-bold text-black">100</div>
         </div>
       </div>
+      <Payment />
     </div>
   );
 };
