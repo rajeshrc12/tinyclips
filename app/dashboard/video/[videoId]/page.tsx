@@ -3,6 +3,8 @@ import { useParams } from "next/navigation";
 import React from "react";
 import { fetcher } from "@/utils/api";
 import useSWR from "swr";
+import { FaArrowLeft } from "react-icons/fa";
+import Link from "next/link";
 
 const VideoDetailsPage = () => {
   const { videoId } = useParams();
@@ -19,13 +21,21 @@ const VideoDetailsPage = () => {
     return <p className="text-center text-gray-500 mt-10 text-lg">Error while loading video...</p>;
   }
   return (
-    <div>
-      <main className="">
+    <div className="flex flex-col gap-4">
+      <div className="max-w-7xl flex">
+        <Link href={"/dashboard/video"} className="flex items-center text-gray-600 hover:text-orange-600">
+          <FaArrowLeft className="mr-2" />
+          Back to Videos
+        </Link>
+      </div>
+      <main>
         <div className="flex gap-6 justify-center">
           {/* Video Player Section (Left) */}
           <div className="h-full w-[20vw]">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
-              <div className="relative bg-black">{data?.url && <video id="video-player" src={data?.url} controls />}</div>
+              <div className="relative bg-black">
+                <video id="video-player" src={data?.url} controls />
+              </div>
             </div>
           </div>
 
