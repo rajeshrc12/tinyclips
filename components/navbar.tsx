@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Button } from "./ui/button";
+import UserBalance from "@/components/user-balance";
 
 const Navbar = () => {
   return (
@@ -10,9 +10,7 @@ const Navbar = () => {
         <Image src={"https://raw.githubusercontent.com/rajeshrc12/tinyclips-public-files/main/images/logo.png"} height={30} width={30} alt="Logo.png" />
         <span className="text-base font-bold">Tinyclips</span>
       </Link>
-      <div>
-        <Button className="sticky bottom-0 left-0 w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">Balance: 100$</Button>
-      </div>
+      <UserBalance />
     </div>
   );
 };

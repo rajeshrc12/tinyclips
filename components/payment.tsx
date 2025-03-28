@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 const formSchema = z
   .object({
@@ -81,14 +82,14 @@ const Payment = () => {
       name: "Tinyclips Topup",
       description: "Tinyclips Topup",
       order_id: orderId,
-      handler: (response: RazorpayPaymentResponse) => {
-        console.log("Payment Successful", response);
+      handler: () => {
+        toast("Payment Successful");
       },
       prefill: { name, email },
       theme: { color: "#3399cc" },
       modal: {
         escape: false,
-        ondismiss: () => console.warn("❌ Payment Cancelled by User"),
+        ondismiss: () => toast("Payment cancelled"),
       },
     };
 

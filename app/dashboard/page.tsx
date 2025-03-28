@@ -1,8 +1,8 @@
 "use client";
+import Loader from "@/components/loader";
 import UserInput from "@/components/user-input";
 import Image from "next/image";
 import React, { useState } from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const DashboardPage = () => {
   const [imageStyle, setImageStyle] = useState("hyper");
@@ -19,11 +19,7 @@ const DashboardPage = () => {
         <UserInput handleImageStyle={handleImageStyle} />
       </div>
       <div className="w-[50%] flex justify-center items-center relative">
-        {loading && (
-          <div className="absolute inset-0 flex justify-center items-center">
-            <AiOutlineLoading3Quarters className="w-8 h-8 animate-spin text-gray-500" />
-          </div>
-        )}
+        {loading && <Loader />}
         <div className={`relative w-auto h-full flex-1 ${loading ? "opacity-0" : "opacity-100 transition-opacity"}`}>
           <Image priority src={`/images/styles/${imageStyle}.png`} alt="Thumbnail" fill className="object-contain" onLoad={() => setLoading(false)} />
         </div>

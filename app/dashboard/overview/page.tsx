@@ -1,18 +1,13 @@
 import { auth } from "@/auth";
+import Loader from "@/components/loader";
 import Payment from "@/components/payment";
 import React from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 
 const OverviewPage = async () => {
   const session = await auth();
 
-  if (!session?.user)
-    return (
-      <div className="absolute inset-0 flex justify-center items-center">
-        <AiOutlineLoading3Quarters className="w-8 h-8 animate-spin text-gray-500" />
-      </div>
-    );
+  if (!session?.user) return <Loader />;
   return (
     <div className="space-y-6 p-4">
       {/* User Profile Section */}

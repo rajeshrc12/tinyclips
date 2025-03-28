@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useSWR from "swr";
 import { Video } from "@prisma/client";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Status from "@/components/status";
 import { useRouter } from "next/navigation";
 import { fetcher } from "@/utils/api";
+import Loader from "@/components/loader";
 
 // Available page size options
 const PAGE_SIZE_OPTIONS = [3, 5, 10, 20];
@@ -26,12 +26,7 @@ const VideoPage = () => {
     refreshInterval: 0, // No polling
   });
 
-  if (isLoading || !data || !data?.videos)
-    return (
-      <div className="absolute inset-0 flex justify-center items-center">
-        <AiOutlineLoading3Quarters className="w-8 h-8 animate-spin text-gray-500" />
-      </div>
-    );
+  if (isLoading || !data || !data?.videos) return <Loader />;
   if (error) return <p>Error loading videos</p>;
 
   // Calculate total pages properly

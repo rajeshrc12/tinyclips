@@ -7,8 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import useSWR from "swr";
 import axios from "axios";
 import { Payment } from "@prisma/client";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Status from "@/components/status";
+import Loader from "@/components/loader";
 
 // Available page size options
 const PAGE_SIZE_OPTIONS = [3, 5, 10, 20];
@@ -22,12 +22,7 @@ const PaymentPage = () => {
   // Fetch videos with pagination
   const { data, error, isLoading } = useSWR(`/api/dashboard/payment?page=${currentPage}&limit=${itemsPerPage}`, fetcher);
 
-  if (isLoading || !data || !data?.videos)
-    return (
-      <div className="absolute inset-0 flex justify-center items-center">
-        <AiOutlineLoading3Quarters className="w-8 h-8 animate-spin text-gray-500" />
-      </div>
-    );
+  if (isLoading || !data || !data?.videos) return <Loader />;
   if (error) return <p>Error loading payments</p>;
 
   // Calculate total pages properly
