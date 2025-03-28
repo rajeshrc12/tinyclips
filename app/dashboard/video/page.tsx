@@ -10,6 +10,8 @@ import Status from "@/components/status";
 import { useRouter } from "next/navigation";
 import { fetcher } from "@/utils/api";
 import Loader from "@/components/loader";
+import { RotateCcw } from "lucide-react";
+import { toast } from "sonner";
 
 // Available page size options
 const PAGE_SIZE_OPTIONS = [3, 5, 10, 20];
@@ -50,7 +52,16 @@ const VideoPage = () => {
     <div className="space-y-4">
       <div className="font-bold text-3xl">My videos</div>
       <div className="flex justify-between">
-        <Button onClick={mutate}>Refresh</Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            mutate();
+            toast("Videos refreshed");
+          }} // Refresh balance when clicked
+          className="p-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
+        >
+          <RotateCcw size={18} />
+        </Button>
         <div className="flex items-center space-x-2">
           <span className="text-sm text-muted-foreground">Items per page</span>
           <Select value={itemsPerPage.toString()} onValueChange={handleItemsPerPageChange}>

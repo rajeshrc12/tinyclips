@@ -7,7 +7,7 @@ import { fetcher } from "@/utils/api";
 import { toast } from "sonner";
 
 const UserBalance = () => {
-  const { data, mutate, isLoading } = useSWR("/api/dashboard/user", fetcher);
+  const { data, mutate } = useSWR("/api/dashboard/balance", fetcher);
 
   return (
     <div className="flex items-center gap-4">
@@ -15,7 +15,7 @@ const UserBalance = () => {
         onClick={() => mutate()} // Fetch latest balance
         className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center gap-2"
       >
-        {isLoading ? "Refreshing..." : `Balance: ${data?.balance?.toFixed(3)} $`}
+        {!data?.balance?.toFixed(3) ? "Refreshing..." : `Balance: ${data?.balance?.toFixed(3) || 0} $`}
       </Button>
       <Button
         variant="outline"

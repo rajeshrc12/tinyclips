@@ -9,6 +9,8 @@ import axios from "axios";
 import { Payment } from "@prisma/client";
 import Status from "@/components/status";
 import Loader from "@/components/loader";
+import { RotateCcw } from "lucide-react";
+import { toast } from "sonner";
 
 // Available page size options
 const PAGE_SIZE_OPTIONS = [3, 5, 10, 20];
@@ -20,7 +22,11 @@ const PaymentPage = () => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 
   // Fetch videos with pagination
-  const { data, error, isLoading } = useSWR(`/api/dashboard/payment?page=${currentPage}&limit=${itemsPerPage}`, fetcher);
+  const { data, error, isLoading, mutate } = useSWR(`/api/dashboard/payment?page=${currentPage}&limit=${itemsPerPage}`, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    refreshInterval: 0, // No polling
+  });
 
   if (isLoading || !data || !data?.videos) return <Loader />;
   if (error) return <p>Error loading payments</p>;
@@ -51,7 +57,17 @@ const PaymentPage = () => {
   return (
     <div className="space-y-4">
       <div className="font-bold text-3xl">My payment</div>
-      <div className="flex justify-end">
+      <div className="flex justify-between">
+        <Button
+          variant="outline"
+          onClick={() => {
+            mutate();
+            toast("Payments refreshed");
+          }} // Refresh balance when clicked
+          className="p-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
+        >
+          <RotateCcw size={18} />
+        </Button>
         <div className="flex items-center space-x-2">
           <span className="text-sm text-muted-foreground">Items per page</span>
           <Select value={itemsPerPage.toString()} onValueChange={handleItemsPerPageChange}>
@@ -77,7 +93,6 @@ const PaymentPage = () => {
             <TableHead>Payment ID</TableHead>
             <TableHead>Amount</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Created At</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

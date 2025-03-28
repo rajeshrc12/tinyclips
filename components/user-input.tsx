@@ -30,7 +30,11 @@ const fetcher = (url: string) => axios.get(url).then((res) => res.data.user);
 
 const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
   const router = useRouter();
-  const { data } = useSWR("/api/dashboard/user", fetcher);
+  const { data } = useSWR("/api/dashboard/user", fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    refreshInterval: 0, // No polling
+  });
   const { balance } = data || {};
   const isBalanceEmpty = Math.ceil(balance) <= 0;
   const defaultValues = {

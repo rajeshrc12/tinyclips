@@ -45,11 +45,15 @@ const Payment = () => {
 
   //   Watch currency changes to update validation
   const selectedCurrency = form.watch("currency");
+  const selectedAmount = form.watch("amount");
 
   useEffect(() => {
     // Trigger validation when currency changes
-    if (selectedCurrency) form.trigger("amount");
-  }, [selectedCurrency, form]);
+    if (selectedCurrency && selectedAmount) {
+      form.trigger("amount");
+      form.trigger("currency");
+    }
+  }, [selectedCurrency, form, selectedAmount]);
 
   const onSubmit = async (userData: PaymentFormValues) => {
     setLoading(true);

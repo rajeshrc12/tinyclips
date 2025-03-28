@@ -1,12 +1,12 @@
-import { FaUser, FaTachometerAlt, FaVideo, FaDollarSign } from "react-icons/fa";
+import { FaUser, FaVideo, FaDollarSign, FaPhotoVideo } from "react-icons/fa";
 import { SignOut } from "@/components/sign-out";
 import ActiveLink from "@/components/active-link"; // New client component for active link detection
 
 export default function Sidebar() {
   const navItems = [
     { name: "Create Shorts", path: "/dashboard", icon: <FaVideo className="h-4 w-4" /> },
-    { name: "Overview", path: "/dashboard/overview", icon: <FaTachometerAlt className="h-4 w-4" /> },
-    { name: "My Videos", path: "/dashboard/video", icon: <FaUser className="h-4 w-4" /> },
+    { name: "Profile", path: "/dashboard/overview", icon: <FaUser className="h-4 w-4" /> },
+    { name: "My Videos", path: "/dashboard/video", icon: <FaPhotoVideo className="h-4 w-4" /> },
     { name: "Payments", path: "/dashboard/payment", icon: <FaDollarSign className="h-4 w-4" /> },
   ];
 
