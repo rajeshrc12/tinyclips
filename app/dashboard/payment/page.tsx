@@ -8,6 +8,7 @@ import useSWR from "swr";
 import axios from "axios";
 import { Payment } from "@prisma/client";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import Status from "@/components/status";
 
 // Available page size options
 const PAGE_SIZE_OPTIONS = [3, 5, 10, 20];
@@ -91,13 +92,7 @@ const PaymentPage = () => {
               <TableCell>{payment.paymentId}</TableCell>
               <TableCell>{formatCurrency(payment.amount, payment.currency)}</TableCell>
               <TableCell>
-                <span
-                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                    payment.status === "successful" ? "bg-green-100 text-green-800" : payment.status === "failed" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"
-                  }`}
-                >
-                  {payment.status}
-                </span>
+                <Status status={payment.status} />
               </TableCell>
             </TableRow>
           ))}

@@ -1,3 +1,4 @@
+import { createVideo } from "@/app/services/video";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Session } from "next-auth";
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
     });
 
     // Call service to process video
-    // createVideo(user.id, newVideo.id, prompt, imageStyle, voiceName, voiceSpeed);
+    createVideo(id, newVideo.id, prompt, imageStyle, voiceName, voiceSpeed);
 
     return Response.json({ ...newVideo }, { status: 201 });
   } catch (error) {

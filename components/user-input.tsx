@@ -36,7 +36,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
   const defaultValues = {
     prompt: "",
     imageStyle: "hyper" as keyof typeof IMAGE_STYLES, // or set a default style
-    voiceName: "af_alloy" as keyof typeof VOICE_NAMES, // or set a default voice
+    voiceName: "am_adam" as keyof typeof VOICE_NAMES, // or set a default voice
     voiceSpeed: 1,
   };
   const form = useForm({
@@ -52,13 +52,8 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
       const response = await axios.post("/api/dashboard/video", data);
 
       if (response.status === 201) {
-        toast("Video creation added in queue", {
-          description: "check your my video section",
-          action: {
-            label: "View",
-            onClick: () => router.push("/dashboard/video"),
-          },
-        });
+        toast("Video creation added in queue");
+        router.push("/dashboard/video");
       } else {
         console.log("Unexpected response from server");
       }
@@ -66,7 +61,6 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
       // Handle error, show error toast
       console.error("Error during submission", err);
     } finally {
-      form.reset(defaultValues);
       setIsSubmitting(false); // Reset loading state
     }
   };
@@ -96,7 +90,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
               <FormItem>
                 <FormLabel className="text-gray-700">Image Style</FormLabel>
                 <Select
-                  defaultValue={field.value}
+                  defaultValue={"hyper"}
                   disabled={isBalanceEmpty || isSubmitting}
                   onValueChange={(e) => {
                     handleImageStyle(e);
@@ -127,7 +121,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-700">Voice Name</FormLabel>
-                <Select disabled={isBalanceEmpty || isSubmitting} onValueChange={field.onChange} defaultValue={field.value}>
+                <Select disabled={isBalanceEmpty || isSubmitting} onValueChange={field.onChange} defaultValue={"am_adam"}>
                   <FormControl>
                     <SelectTrigger className="w-full border-gray-300 focus:ring-2 focus:ring-orange-500 rounded-lg">
                       <SelectValue placeholder="Select a voice" />
