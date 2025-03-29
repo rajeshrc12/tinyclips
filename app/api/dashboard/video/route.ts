@@ -3,12 +3,14 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Session } from "next-auth";
 
+const IMAGE_PRICE = parseFloat(process.env.IMAGE_PRICE!);
+
 export async function POST(req: Request) {
   const {
     user: { id },
   } = (await auth()) as Session;
 
-  const { prompt, imageStyle, voiceName, voiceSpeed } = await req.json();
+  const { prompt, imageStyle, voiceName, voiceSpeed, estimatedImageCount } = await req.json();
   if (!prompt || !imageStyle || !voiceName || !voiceSpeed) {
     return Response.json({ error: "Missing required fields" }, { status: 400 });
   }
@@ -19,8 +21,20 @@ export async function POST(req: Request) {
       data: { prompt, imageStyle, voiceName, voiceSpeed, userId: id },
     });
 
+    if (newVideo) {
+      const estimatedCharges = IMAGE_PRICE * estimatedImageCount;
+      const response = await prisma.user.update({
+        where: { id },
+        data: {
+          balance: { decrement: estimatedCharges }, // Subtract `amount` from the balance
+        },
+      });
+      if (response) {
+        console.log("balance updated");
+        createVideo(id, newVideo.id, prompt, imageStyle, voiceName, voiceSpeed, estimatedCharges);
+      }
+    }
     // Call service to process video
-    createVideo(id, newVideo.id, prompt, imageStyle, voiceName, voiceSpeed);
 
     return Response.json({ ...newVideo }, { status: 201 });
   } catch (error) {

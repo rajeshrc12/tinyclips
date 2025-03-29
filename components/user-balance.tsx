@@ -15,7 +15,7 @@ const UserBalance = () => {
         onClick={() => mutate()} // Fetch latest balance
         className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center gap-2"
       >
-        {!data?.balance?.toFixed(3) ? "Refreshing..." : `Balance: ${data?.balance?.toFixed(3) || 0} $`}
+        {!data?.balance?.toFixed(3) ? "Refreshing..." : `Balance: ${data?.balance?.toFixed(4) || 0} $`}
       </Button>
       <Button
         variant="outline"

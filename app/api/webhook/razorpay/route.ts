@@ -1,7 +1,10 @@
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
+import axios from "axios";
 
 const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET!;
+let USD_RATE = parseFloat(process.env.USD_RATE!);
+const FREECURRENCY_API_KEY = process.env.FREECURRENCY_API_KEY!;
 
 export async function POST(req: Request) {
   try {
@@ -20,7 +23,7 @@ export async function POST(req: Request) {
     const payment = data.payload.payment.entity;
     const userId = payment.notes.userId;
     const paymentId = payment.id;
-    const amount = payment.amount / 100;
+    let amount = payment.amount / 100;
     const currency = payment.currency;
 
     if (event === "payment.captured") {
@@ -44,7 +47,11 @@ export async function POST(req: Request) {
       } else {
         console.error("Failed to create payment");
       }
-
+      if (currency === "INR") {
+        const conversionResponse = await axios.get(`https://api.freecurrencyapi.com/v1/latest?apikey=${FREECURRENCY_API_KEY}&currencies=INR`);
+        USD_RATE = conversionResponse?.data?.data?.INR || USD_RATE;
+        amount = amount / USD_RATE;
+      }
       // Update user balance
       const userResponse = await prisma.user.update({
         where: { id: userId },

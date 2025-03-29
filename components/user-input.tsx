@@ -15,18 +15,13 @@ import useSWR from "swr";
 import { IMAGE_STYLES } from "@/constants/imageStyles";
 import { VOICE_NAMES } from "@/constants/voiceNames";
 import { toast } from "sonner";
+import { fetcher } from "@/utils/api";
 
 interface UserInputProps {
   handleImageStyle: (style: string) => void;
 }
 
-const formSchema = z.object({
-  prompt: z.string().min(25, "Prompt must be at least 25 characters").max(500, "Prompt must be at most 500 characters"),
-  imageStyle: z.enum(Object.keys(IMAGE_STYLES) as [keyof typeof IMAGE_STYLES]),
-  voiceName: z.enum(Object.keys(VOICE_NAMES) as [keyof typeof VOICE_NAMES]),
-  voiceSpeed: z.number().min(0.7, "Speed must be at least 0.7").max(2, "Speed must be at most 2"),
-});
-const fetcher = (url: string) => axios.get(url).then((res) => res.data.user);
+const IMAGE_PRICE = parseFloat(process.env.NEXT_PUBLIC_IMAGE_PRICE!);
 
 const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
   const router = useRouter();
@@ -36,7 +31,25 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
     refreshInterval: 0, // No polling
   });
   const { balance } = data || {};
-  const isBalanceEmpty = Math.ceil(balance) <= 0;
+  const formSchema = z.object({
+    prompt: z
+      .string()
+      .min(40, "Prompt must be at least 40 characters") // ✅ Step 1: Min 40 chars
+      .max(500, "Prompt must be at most 500 characters") // ✅ Step 3: Max 500 chars
+      .superRefine((prompt, ctx) => {
+        const cost = (prompt.length / 40) * IMAGE_PRICE; // ✅ Step 2: Cost calculation
+        if (balance - cost < 0) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Insufficient balance for this prompt. Please add funds.",
+          });
+        }
+      }),
+    imageStyle: z.enum(Object.keys(IMAGE_STYLES) as [keyof typeof IMAGE_STYLES]),
+    voiceName: z.enum(Object.keys(VOICE_NAMES) as [keyof typeof VOICE_NAMES]),
+    voiceSpeed: z.number().min(0.7, "Speed must be at least 0.7").max(2, "Speed must be at most 2"),
+  });
+  const isBalanceEmpty = balance < IMAGE_PRICE;
   const defaultValues = {
     prompt: "",
     imageStyle: "hyper" as keyof typeof IMAGE_STYLES, // or set a default style
@@ -168,7 +181,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
             <Button
               onClick={(e) => {
                 e.preventDefault();
-                router.push("/dashboard/profile");
+                router.push("/dashboard/overview");
               }}
               className="sticky bottom-0 left-0 w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
             >
@@ -185,7 +198,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
           )}
         </form>
       </Form>
-      {isBalanceEmpty && <p className="text-red-500 text-sm mt-2">You have zero balance. Please add funds to proceed.</p>}
+      {isBalanceEmpty && <p className="text-red-500 font-bold text-sm mt-2">You have Insufficient balance. Please add funds to proceed.</p>}
     </div>
   );
 };

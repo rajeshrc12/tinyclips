@@ -26,7 +26,9 @@ const ShowcasePage = () => {
             <span className="text-base font-bold">Tinyclips</span>
           </Link>
 
-          <Button className="bg-orange-600 hover:bg-orange-700 px-3 py-1 text-xs h-8">Login</Button>
+          <Link href={"/login"}>
+            <Button className="bg-orange-600 hover:bg-orange-700 px-3 py-1 text-sm">Login</Button>
+          </Link>
         </div>
       </nav>
 

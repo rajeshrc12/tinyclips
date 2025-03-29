@@ -23,6 +23,7 @@ model Video {
   imageStyle String
   voiceName  String
   voiceSpeed Float
+  duration   Float    @default(0)
   imageCount Int      @default(0)
   userId     String
   createdAt  DateTime @default(now())

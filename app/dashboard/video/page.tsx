@@ -85,11 +85,13 @@ const VideoPage = () => {
           <TableRow>
             <TableHead>Sr</TableHead>
             <TableHead>Prompt</TableHead>
+            <TableHead>Characters</TableHead>
             <TableHead>Style</TableHead>
             <TableHead>Voice</TableHead>
             <TableHead>Speed</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Images</TableHead>
+            <TableHead>Duration</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -104,6 +106,7 @@ const VideoPage = () => {
             >
               <TableCell className="font-medium">{(currentPage - 1) * itemsPerPage + index + 1}</TableCell>
               <TableCell className="max-w-[200px] truncate">{video.prompt}</TableCell>
+              <TableCell>{video.prompt.length}</TableCell>
               <TableCell>{video.imageStyle}</TableCell>
               <TableCell>{video.voiceName}</TableCell>
               <TableCell>{video.voiceSpeed}x</TableCell>
@@ -111,6 +114,7 @@ const VideoPage = () => {
                 <Status status={video.imageCount === 0 ? "pending" : video.imageCount > 0 ? "successful" : "failed"} />
               </TableCell>
               <TableCell>{video.imageCount}</TableCell>
+              <TableCell>{video.duration}s</TableCell>
             </TableRow>
           ))}
         </TableBody>

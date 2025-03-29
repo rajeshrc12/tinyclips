@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { FaCopy, FaDownload, FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -76,16 +76,7 @@ const VideoDetailPage = () => {
                   <h3 className="text-sm font-medium text-gray-700 mb-2">Full Script</h3>
                   <div className="relative">
                     <textarea readOnly value={video.script} className="w-full p-3 bg-gray-50 rounded border border-gray-200 text-sm text-gray-700 resize-none" rows={8} />
-                    <Button variant="outline" size="sm" className="absolute bottom-2 right-2" onClick={() => navigator.clipboard.writeText(video.script)}>
-                      <FaCopy className="mr-1" /> Copy
-                    </Button>
                   </div>
-                </div>
-
-                <div className="flex space-x-3 pt-2">
-                  <Button variant="outline" className="flex-1">
-                    <FaDownload className="mr-2" /> Download
-                  </Button>
                 </div>
               </div>
             </div>
