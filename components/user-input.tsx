@@ -16,6 +16,7 @@ import { IMAGE_STYLES } from "@/constants/imageStyles";
 import { VOICE_NAMES } from "@/constants/voiceNames";
 import { toast } from "sonner";
 import { fetcher } from "@/utils/api";
+import Loader from "./loader";
 
 interface UserInputProps {
   handleImageStyle: (style: string) => void;
@@ -41,7 +42,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
         if (balance - cost < 0) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            message: "Insufficient balance for this prompt. Please add funds.",
+            message: "Insufficient balance for this prompt. Please add funds or make script short",
           });
         }
       }),
@@ -69,19 +70,24 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
       const response = await axios.post("/api/dashboard/video", data);
 
       if (response.status === 201) {
-        toast("Video creation added in queue");
+        toast.success("Video creation added in queue");
         router.push("/dashboard/video");
       } else {
-        console.log("Unexpected response from server");
+        toast.error("Unexpected response from server");
       }
-    } catch (err) {
-      // Handle error, show error toast
-      console.error("Error during submission", err);
+    } catch (error) {
+      // Ensure it's an Axios error
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.error || "Something went wrong!";
+        toast.error(errorMessage);
+      } else {
+        toast.error("An unexpected error occurred.");
+      }
     } finally {
       setIsSubmitting(false); // Reset loading state
     }
   };
-
+  if (typeof balance !== "number") return <Loader />;
   return (
     <div className="max-w-[30vw] mx-auto">
       <Form {...form}>
@@ -91,7 +97,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
             name="prompt"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-gray-700">Prompt</FormLabel>
+                <FormLabel className="text-gray-700">Script</FormLabel>
                 <FormControl>
                   <Textarea {...field} disabled={isBalanceEmpty || isSubmitting} className="h-32 resize-none border-gray-300 focus:ring-2 focus:ring-orange-500 rounded-lg" />
                 </FormControl>
@@ -198,7 +204,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
           )}
         </form>
       </Form>
-      {isBalanceEmpty && <p className="text-red-500 font-bold text-sm mt-2">You have Insufficient balance. Please add funds to proceed.</p>}
+      {isBalanceEmpty && <p className="text-red-500 font-bold text-sm mt-2">You have Insufficient balance. Please add funds to proceed or make script short</p>}
     </div>
   );
 };

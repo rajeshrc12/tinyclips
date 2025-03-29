@@ -3,38 +3,47 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { Session } from "next-auth";
 
-const IMAGE_PRICE = parseFloat(process.env.IMAGE_PRICE!);
+const IMAGE_PRICE = parseFloat(process.env.NEXT_PUBLIC_IMAGE_PRICE!);
 
 export async function POST(req: Request) {
   const {
     user: { id },
   } = (await auth()) as Session;
 
-  const { prompt, imageStyle, voiceName, voiceSpeed, estimatedImageCount } = await req.json();
+  const { prompt, imageStyle, voiceName, voiceSpeed } = await req.json();
   if (!prompt || !imageStyle || !voiceName || !voiceSpeed) {
     return Response.json({ error: "Missing required fields" }, { status: 400 });
   }
 
   try {
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+    if (!user) return Response.json({ error: "User not found" }, { status: 401 });
+    if (user?.balance <= 0) {
+      return Response.json({ error: "Insufficient balance for this prompt. Please add funds" }, { status: 400 });
+    }
+    const cost = Math.round(prompt.length / 40) * IMAGE_PRICE;
+    if (user?.balance - cost < 0) {
+      return Response.json({ error: "Insufficient balance for this script. Please add funds or make script short" }, { status: 400 });
+    }
     // Create video with the user's ID
     const newVideo = await prisma.video.create({
       data: { prompt, imageStyle, voiceName, voiceSpeed, userId: id },
     });
 
     if (newVideo) {
-      const estimatedCharges = IMAGE_PRICE * estimatedImageCount;
       const response = await prisma.user.update({
         where: { id },
         data: {
-          balance: { decrement: estimatedCharges }, // Subtract `amount` from the balance
+          balance: { decrement: cost }, // Subtract `amount` from the balance
         },
       });
       if (response) {
         console.log("balance updated");
-        createVideo(id, newVideo.id, prompt, imageStyle, voiceName, voiceSpeed, estimatedCharges);
+        createVideo(id, newVideo.id, prompt, imageStyle, voiceName, voiceSpeed, cost);
       }
     }
-    // Call service to process video
 
     return Response.json({ ...newVideo }, { status: 201 });
   } catch (error) {

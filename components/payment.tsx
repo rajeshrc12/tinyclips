@@ -87,13 +87,13 @@ const Payment = () => {
       description: "Tinyclips Topup",
       order_id: orderId,
       handler: () => {
-        toast("Payment Successful");
+        toast.success("Payment Successful");
       },
       prefill: { name, email },
       theme: { color: "#3399cc" },
       modal: {
         escape: false,
-        ondismiss: () => toast("Payment cancelled"),
+        ondismiss: () => toast.error("Payment cancelled"),
       },
     };
 

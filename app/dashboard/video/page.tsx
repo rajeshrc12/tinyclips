@@ -56,7 +56,7 @@ const VideoPage = () => {
           variant="outline"
           onClick={() => {
             mutate();
-            toast("Videos refreshed");
+            toast.success("Videos refreshed");
           }} // Refresh balance when clicked
           className="p-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
         >

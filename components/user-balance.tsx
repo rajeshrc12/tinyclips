@@ -21,7 +21,7 @@ const UserBalance = () => {
         variant="outline"
         onClick={() => {
           mutate();
-          toast("Balance refreshed");
+          toast.success("Balance refreshed");
         }} // Refresh balance when clicked
         className="p-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
       >
