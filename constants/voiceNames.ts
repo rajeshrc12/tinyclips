@@ -1,0 +1,31 @@
+export const VOICE_NAMES = {
+  af_alloy: "Female - Alloy (American)",
+  af_aoede: "Female - Aoede (American)",
+  af_bella: "Female - Bella (American)",
+  af_jessica: "Female - Jessica (American)",
+  af_kore: "Female - Kore (American)",
+  af_nicole: "Female - Nicole (American)",
+  af_nova: "Female - Nova (American)",
+  af_river: "Female - River (American)",
+  af_sarah: "Female - Sarah (American)",
+  af_sky: "Female - Sky (American)",
+
+  am_adam: "Male - Adam (American)",
+  am_echo: "Male - Echo (American)",
+  am_eric: "Male - Eric (American)",
+  am_fenrir: "Male - Fenrir (American)",
+  am_liam: "Male - Liam (American)",
+  am_michael: "Male - Michael (American)",
+  am_onyx: "Male - Onyx (American)",
+  am_puck: "Male - Puck (American)",
+
+  bf_alice: "Female - Alice (British)",
+  bf_emma: "Female - Emma (British)",
+  bf_isabella: "Female - Isabella (British)",
+  bf_lily: "Female - Lily (British)",
+
+  bm_daniel: "Male - Daniel (British)",
+  bm_fable: "Male - Fable (British)",
+  bm_george: "Male - George (British)",
+  bm_lewis: "Male - Lewis (British)",
+} as const;

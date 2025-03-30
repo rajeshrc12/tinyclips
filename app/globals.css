@@ -112,6 +112,19 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.user-input-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.user-input-scrollbar::-webkit-scrollbar-track {
+  background: white;
+}
+
+.user-input-scrollbar::-webkit-scrollbar-thumb {
+  background: #f2f2f2;
+  border-radius: 4px;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
