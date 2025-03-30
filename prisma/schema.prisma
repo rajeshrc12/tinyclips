@@ -11,7 +11,7 @@ model User {
   id          String    @id @default(uuid())
   name        String
   email       String    @unique
-  balance     Float     @default(0.0)
+  balance     Decimal   @default(0.0000) @db.Decimal(65, 4)
   createdAt   DateTime  @default(now())
   Video       Video[]
   Transaction Payment[] // ✅ A user can have multiple transactions
@@ -25,6 +25,7 @@ model Video {
   voiceSpeed Float
   duration   Float    @default(0)
   imageCount Int      @default(0)
+  balance    Decimal  @default(0.0000) @db.Decimal(65, 4)
   userId     String
   createdAt  DateTime @default(now())
 

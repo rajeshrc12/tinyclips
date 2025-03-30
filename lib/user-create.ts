@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+const INITIAL_BALANCE = parseFloat(process.env.INITIAL_BALANCE!);
 
 export async function findOrCreateUser(email: string, name: string) {
   if (!email || !name) return null;
@@ -13,7 +14,7 @@ export async function findOrCreateUser(email: string, name: string) {
         data: {
           email,
           name,
-          balance: 0, // Default balance
+          balance: INITIAL_BALANCE, // Default balance
         },
       });
     }

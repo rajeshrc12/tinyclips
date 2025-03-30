@@ -3,7 +3,7 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "balance" DOUBLE PRECISION NOT NULL DEFAULT 0.0,
+    "balance" DECIMAL(65,4) NOT NULL DEFAULT 0.0000,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -16,7 +16,9 @@ CREATE TABLE "Video" (
     "imageStyle" TEXT NOT NULL,
     "voiceName" TEXT NOT NULL,
     "voiceSpeed" DOUBLE PRECISION NOT NULL,
+    "duration" DOUBLE PRECISION NOT NULL DEFAULT 0,
     "imageCount" INTEGER NOT NULL DEFAULT 0,
+    "balance" DECIMAL(65,4) NOT NULL DEFAULT 0.0000,
     "userId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

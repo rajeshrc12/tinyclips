@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useSWR from "swr";
@@ -15,6 +15,7 @@ import { toast } from "sonner";
 
 // Available page size options
 const PAGE_SIZE_OPTIONS = [3, 5, 10, 20];
+const IMAGE_PRICE = parseFloat(process.env.NEXT_PUBLIC_IMAGE_PRICE!);
 
 const VideoPage = () => {
   const router = useRouter();
@@ -84,14 +85,13 @@ const VideoPage = () => {
         <TableHeader>
           <TableRow>
             <TableHead>Sr</TableHead>
-            <TableHead>Prompt</TableHead>
-            <TableHead>Characters</TableHead>
+            <TableHead>Script</TableHead>
             <TableHead>Style</TableHead>
             <TableHead>Voice</TableHead>
             <TableHead>Speed</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Images</TableHead>
-            <TableHead>Duration</TableHead>
+            <TableHead>Charges</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -106,7 +106,6 @@ const VideoPage = () => {
             >
               <TableCell className="font-medium">{(currentPage - 1) * itemsPerPage + index + 1}</TableCell>
               <TableCell className="max-w-[200px] truncate">{video.prompt}</TableCell>
-              <TableCell>{video.prompt.length}</TableCell>
               <TableCell>{video.imageStyle}</TableCell>
               <TableCell>{video.voiceName}</TableCell>
               <TableCell>{video.voiceSpeed}x</TableCell>
@@ -114,10 +113,17 @@ const VideoPage = () => {
                 <Status status={video.imageCount === 0 ? "pending" : video.imageCount > 0 ? "successful" : "failed"} />
               </TableCell>
               <TableCell>{video.imageCount}</TableCell>
-              <TableCell>{video.duration}s</TableCell>
+              <TableCell>{(video.imageCount * IMAGE_PRICE).toFixed(4)}</TableCell>
             </TableRow>
           ))}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={6} className="font-semibold text-right"></TableCell>
+            <TableCell className="font-bold">{data.videos.reduce((sum: number, video: Video) => sum + video.imageCount, 0)}</TableCell>
+            <TableCell className="font-bold">{data.videos.reduce((sum: number, video: Video) => sum + video.imageCount * IMAGE_PRICE, 0).toFixed(4)}</TableCell>
+          </TableRow>
+        </TableFooter>
       </Table>
 
       {/* Pagination controls */}

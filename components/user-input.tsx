@@ -31,18 +31,19 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
     revalidateOnReconnect: false,
     refreshInterval: 0, // No polling
   });
-  const { balance } = data || {};
+  console.log(data);
+  const balance = Number(data?.balance);
   const formSchema = z.object({
     prompt: z
       .string()
-      .min(40, "Prompt must be at least 40 characters") // ✅ Step 1: Min 40 chars
-      .max(500, "Prompt must be at most 500 characters") // ✅ Step 3: Max 500 chars
+      .min(40, "Script must be at least 40 characters") // ✅ Step 1: Min 40 chars
+      .max(500, "Script must be at most 500 characters") // ✅ Step 3: Max 500 chars
       .superRefine((prompt, ctx) => {
         const cost = (prompt.length / 40) * IMAGE_PRICE; // ✅ Step 2: Cost calculation
         if (balance - cost < 0) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            message: "Insufficient balance for this prompt. Please add funds or make script short",
+            message: "Insufficient balance for this script. Please add funds or make script short",
           });
         }
       }),
@@ -55,7 +56,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
     prompt: "",
     imageStyle: "hyper" as keyof typeof IMAGE_STYLES, // or set a default style
     voiceName: "am_adam" as keyof typeof VOICE_NAMES, // or set a default voice
-    voiceSpeed: 1,
+    voiceSpeed: 0.9,
   };
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -64,6 +65,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
   const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    form.reset(defaultValues);
     setIsSubmitting(true); // Set loading state
     try {
       // Make the API call using Axios
@@ -83,10 +85,10 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
       } else {
         toast.error("An unexpected error occurred.");
       }
-    } finally {
       setIsSubmitting(false); // Reset loading state
     }
   };
+
   if (typeof balance !== "number") return <Loader />;
   return (
     <div className="max-w-[30vw] mx-auto">

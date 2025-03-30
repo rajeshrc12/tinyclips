@@ -20,32 +20,33 @@ export async function POST(req: Request) {
       where: { id },
     });
     if (!user) return Response.json({ error: "User not found" }, { status: 401 });
-    if (user?.balance <= 0) {
+    const balance = user?.balance?.toNumber();
+    if (balance <= 0) {
       return Response.json({ error: "Insufficient balance for this prompt. Please add funds" }, { status: 400 });
     }
-    const cost = Math.round(prompt.length / 40) * IMAGE_PRICE;
-    if (user?.balance - cost < 0) {
+    const imageCount = Math.round(prompt.length / 40);
+    const estimatedCharges = imageCount * IMAGE_PRICE;
+    console.log("estimated cost", estimatedCharges, prompt.length);
+    if (balance - estimatedCharges < 0) {
       return Response.json({ error: "Insufficient balance for this script. Please add funds or make script short" }, { status: 400 });
     }
     // Create video with the user's ID
-    const newVideo = await prisma.video.create({
-      data: { prompt, imageStyle, voiceName, voiceSpeed, userId: id },
+    const video = await prisma.video.create({
+      data: { prompt, imageStyle, voiceName, voiceSpeed, userId: id, balance },
     });
-
-    if (newVideo) {
+    if (video) {
       const response = await prisma.user.update({
         where: { id },
         data: {
-          balance: { decrement: cost }, // Subtract `amount` from the balance
+          balance: { decrement: estimatedCharges }, // Subtract `amount` from the balance
         },
       });
       if (response) {
-        console.log("balance updated");
-        createVideo(id, newVideo.id, prompt, imageStyle, voiceName, voiceSpeed, cost);
+        createVideo(id, video.id, prompt, imageStyle, voiceName, voiceSpeed, estimatedCharges);
       }
     }
 
-    return Response.json({ ...newVideo }, { status: 201 });
+    return Response.json({ ...video }, { status: 201 });
   } catch (error) {
     console.error("Error creating video:", error);
     return Response.json({ error: "Error creating video" }, { status: 500 });
