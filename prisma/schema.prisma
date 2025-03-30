@@ -25,6 +25,7 @@ model Video {
   voiceSpeed Float
   duration   Float    @default(0)
   imageCount Int      @default(0)
+  progress   Int      @default(0)
   balance    Decimal  @default(0.0000) @db.Decimal(65, 4)
   userId     String
   createdAt  DateTime @default(now())
