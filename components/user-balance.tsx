@@ -14,10 +14,7 @@ const UserBalance = () => {
     <div className="flex items-center gap-4">
       <Link href="/dashboard/overview">
         {" "}
-        <Button
-          onClick={() => mutate()} // Fetch latest balance
-          className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center gap-2"
-        >
+        <Button className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center gap-2">
           {!data?.balance ? "Refreshing..." : `Balance: ${data?.balance || 0} $`}
         </Button>
       </Link>

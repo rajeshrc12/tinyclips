@@ -25,7 +25,8 @@ const ShowcasePage = () => {
       <nav className="bg-white shadow-sm py-4 px-6 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <Image src="https://raw.githubusercontent.com/rajeshrc12/tinyclips-public-files/main/images/logo.png" height={36} width={36} alt="Tinyclips Logo" className="rounded-full" />
+            <Image src={"/images/logo.png"} height={30} width={30} alt="Logo.png" />
+
             <span className="text-lg font-bold text-gray-800">Tinyclips</span>
           </Link>
 

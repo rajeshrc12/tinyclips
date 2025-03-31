@@ -83,7 +83,7 @@ const HomePage = () => {
       {/* Navigation */}
       <nav className="py-6 px-4 sm:px-12 flex justify-between items-center">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="flex items-center gap-3">
-          <Image src={"https://raw.githubusercontent.com/rajeshrc12/tinyclips-public-files/main/images/logo.png"} height={30} width={30} alt="Logo.png" />
+          <Image src={"/images/logo.png"} height={40} width={40} alt="Logo.png" />
           <span className="text-2xl font-bold  bg-clip-text text-black">Tinyclips</span>
         </motion.div>
 
@@ -424,7 +424,8 @@ const HomePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center mb-4 gap-3">
-                <Image src={"https://raw.githubusercontent.com/rajeshrc12/tinyclips-public-files/main/images/logo.png"} height={30} width={30} alt="Logo.png" />
+                <Image src={"/images/logo.png"} height={40} width={40} alt="Logo.png" />
+
                 <span className="text-xl font-bold">Tinyclips</span>
               </div>
               <p className="text-gray-400">Transforming scripts into engaging videos with the power of AI.</p>

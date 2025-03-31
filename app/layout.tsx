@@ -10,8 +10,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "TinyClips",
-  description: "Make Faceless vidoes",
+  title: "Tinyclips",
+  description: "Make AI Faceless videos",
+  icons: {
+    icon: "/images/logo.png", // or use  if that's where it is
+  },
 };
 
 export default function RootLayout({

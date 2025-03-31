@@ -10,7 +10,7 @@ const LoginPage = () => {
         <div className="max-w-6xl p-1 flex justify-between items-center">
           <Link href={"/"} className="flex items-center gap-2">
             <div>
-              <Image src={"https://raw.githubusercontent.com/rajeshrc12/tinyclips-public-files/main/images/logo.png"} height={30} width={30} alt="Logo.png" />
+              <Image src={"/images/logo.png"} height={40} width={40} alt="Logo.png" />
             </div>
             <span className="text-base font-bold">Tinyclips</span>
           </Link>

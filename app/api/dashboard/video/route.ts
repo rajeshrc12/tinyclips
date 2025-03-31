@@ -70,7 +70,7 @@ export async function GET(req: Request) {
       where: { userId: id },
     });
 
-    const total = await prisma.video.count(); // Get total video count
+    const total = await prisma.video.count({ where: { userId: id } }); // Get total video count
 
     return Response.json({ videos, total, page, limit }, { status: 200 });
   } catch (error) {
