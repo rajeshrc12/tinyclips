@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Tinyclips",
   description: "Make AI Faceless videos",
   icons: {
-    icon: "/images/logo.png", // or use  if that's where it is
+    icon: "/favicon.png", // or use  if that's where it is
   },
 };
 
