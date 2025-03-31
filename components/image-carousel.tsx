@@ -32,7 +32,7 @@ export default function ImageCarousel() {
     >
       {data.map((id, index) => (
         <SwiperSlide key={index} className="relative h-32 md:h-40 lg:h-48 rounded">
-          <Link href={`/video/${id}`} className="relative block h-full">
+          <Link href={`/showcase`} className="relative block h-full">
             <div className="relative h-full">
               <Image src={`${CLOUDFARE_R2_PUBLIC_BASE_URL}/image/${id}.png`} alt={`Slide ${index}`} height={600} width={300} priority={index < 3} />
               {/* Play Button Overlay */}
