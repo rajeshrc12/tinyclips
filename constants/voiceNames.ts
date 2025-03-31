@@ -1,4 +1,13 @@
 export const VOICE_NAMES = {
+  am_adam: "Male - Adam (American)",
+  am_echo: "Male - Echo (American)",
+  am_eric: "Male - Eric (American)",
+  am_fenrir: "Male - Fenrir (American)",
+  am_liam: "Male - Liam (American)",
+  am_michael: "Male - Michael (American)",
+  am_onyx: "Male - Onyx (American)",
+  am_puck: "Male - Puck (American)",
+
   af_alloy: "Female - Alloy (American)",
   af_aoede: "Female - Aoede (American)",
   af_bella: "Female - Bella (American)",
@@ -9,15 +18,6 @@ export const VOICE_NAMES = {
   af_river: "Female - River (American)",
   af_sarah: "Female - Sarah (American)",
   af_sky: "Female - Sky (American)",
-
-  am_adam: "Male - Adam (American)",
-  am_echo: "Male - Echo (American)",
-  am_eric: "Male - Eric (American)",
-  am_fenrir: "Male - Fenrir (American)",
-  am_liam: "Male - Liam (American)",
-  am_michael: "Male - Michael (American)",
-  am_onyx: "Male - Onyx (American)",
-  am_puck: "Male - Puck (American)",
 
   bf_alice: "Female - Alice (British)",
   bf_emma: "Female - Emma (British)",

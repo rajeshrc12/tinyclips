@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,6 +17,9 @@ import { VOICE_NAMES } from "@/constants/voiceNames";
 import { toast } from "sonner";
 import { fetcher } from "@/utils/api";
 import Loader from "./loader";
+import AudioPlayer from "./audio-player";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { VoiceName } from "@/types/user-input";
 
 interface UserInputProps {
   handleImageStyle: (style: string) => void;
@@ -25,13 +28,13 @@ interface UserInputProps {
 const IMAGE_PRICE = parseFloat(process.env.NEXT_PUBLIC_IMAGE_PRICE!);
 
 const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
+  const [globalAudio, setGlobalAudio] = useState<HTMLAudioElement | null>(null);
   const router = useRouter();
   const { data } = useSWR("/api/dashboard/user", fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     refreshInterval: 0, // No polling
   });
-  console.log(data);
   const balance = Number(data?.balance);
   const formSchema = z.object({
     prompt: z
@@ -89,6 +92,11 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
     }
   };
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setGlobalAudio(new Audio());
+    }
+  }, []);
   if (typeof balance !== "number") return <Loader />;
   return (
     <div className="max-w-[30vw] mx-auto">
@@ -146,20 +154,30 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-700">Voice Name</FormLabel>
-                <Select disabled={isBalanceEmpty || isSubmitting} onValueChange={field.onChange} defaultValue={"am_adam"}>
-                  <FormControl>
-                    <SelectTrigger className="w-full border-gray-300 focus:ring-2 focus:ring-orange-500 rounded-lg">
-                      <SelectValue placeholder="Select a voice" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="bg-white shadow-lg border-gray-200 rounded-md">
+                <Popover>
+                  <PopoverTrigger className="w-full flex justify-start" asChild>
+                    <Button disabled={isBalanceEmpty || isSubmitting} className="font-normal" variant="outline">
+                      {VOICE_NAMES[field.value as VoiceName] || "Select a voice"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent side="bottom" align="start" className="p-0 m-0 h-[30vh] overflow-y-scroll" alignOffset={0}>
                     {Object.entries(VOICE_NAMES).map(([key, label]) => (
-                      <SelectItem key={key} value={key}>
-                        {label}
-                      </SelectItem>
+                      <div
+                        key={key}
+                        className="flex hover:bg-gray-100 cursor-pointer items-center py-1"
+                        onClick={() => field.onChange(key)} // Directly update the form value
+                      >
+                        <AudioPlayer
+                          voiceKey={key}
+                          globalAudio={globalAudio}
+                          currentPlayingVoice={field.value} // Use field.value instead of separate state
+                          setCurrentPlayingVoice={field.onChange} // Ensure consistency
+                        />
+                        <div className="ml-2">{label}</div>
+                      </div>
                     ))}
-                  </SelectContent>
-                </Select>
+                  </PopoverContent>
+                </Popover>
                 <FormMessage />
               </FormItem>
             )}
