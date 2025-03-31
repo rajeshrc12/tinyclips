@@ -8,7 +8,6 @@ const Navbar = () => {
     <div className="flex justify-between items-center h-full px-2">
       <Link href={"/"} className="flex items-center gap-2">
         <Image src={"/images/logo.png"} height={30} width={30} alt="Logo.png" />
-
         <span className="text-base font-bold">Tinyclips</span>
       </Link>
       <UserBalance />

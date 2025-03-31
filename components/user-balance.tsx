@@ -6,6 +6,7 @@ import { RotateCcw } from "lucide-react"; // React Icons
 import { fetcher } from "@/utils/api";
 import { toast } from "sonner";
 import Link from "next/link";
+const IMAGE_PRICE = parseFloat(process.env.NEXT_PUBLIC_IMAGE_PRICE!);
 
 const UserBalance = () => {
   const { data, mutate } = useSWR("/api/dashboard/balance", fetcher);
@@ -15,7 +16,7 @@ const UserBalance = () => {
       <Link href="/dashboard/overview">
         {" "}
         <Button className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center gap-2">
-          {!data?.balance ? "Refreshing..." : `Balance: ${data?.balance || 0} $`}
+          {!data?.balance ? "Refreshing..." : data?.trialUser ? `Free images : ${Math.floor(data?.balance / IMAGE_PRICE)}` : `Balance: ${data?.balance || 0} $`}
         </Button>
       </Link>
 
