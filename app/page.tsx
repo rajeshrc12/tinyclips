@@ -2,8 +2,9 @@
 import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
-import { FaMicrophone, FaPalette, FaMagic, FaArrowRight, FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaMicrophone, FaPalette, FaMagic, FaArrowRight, FaTwitter, FaGithub, FaLinkedin, FaChartLine, FaImage, FaCoins } from "react-icons/fa";
 import Link from "next/link";
+import ImageCarousel from "@/components/image-carousel";
 
 const HomePage = () => {
   const steps = [
@@ -57,11 +58,26 @@ const HomePage = () => {
     show: { opacity: 1, y: 0 },
   };
 
-  const fadeIn = {
+  const containerVariants = {
     hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { duration: 0.8 } },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
   };
 
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-orange-100">
       {/* Navigation */}
@@ -77,6 +93,9 @@ const HomePage = () => {
           </a>
           <a href="#how-it-works" className="font-medium text-gray-700 hover:text-orange-600">
             How It Works
+          </a>
+          <a href="#pricing" className="font-medium text-gray-700 hover:text-orange-600">
+            Pricing
           </a>
           <a href="#contact" className="font-medium text-gray-700 hover:text-orange-600">
             Contact
@@ -120,17 +139,8 @@ const HomePage = () => {
             Watch Demo
           </motion.button> */}
         </motion.div>
-
-        <motion.div variants={fadeIn} className="relative rounded-xl overflow-hidden shadow-2xl border-8 border-white h-[80vh]">
-          <Image
-            src={"https://raw.githubusercontent.com/rajeshrc12/tinyclips-public-files/main/images/3.png"}
-            layout="fill" // Makes the image cover the parent div
-            objectFit="cover" // Ensures the image fills without compression
-            alt="Sample video frame"
-          />
-        </motion.div>
       </motion.section>
-
+      <ImageCarousel />
       {/* Features Section */}
       <section id="features" className="py-20 px-4 sm:px-12 bg-white">
         <div className="max-w-6xl mx-auto">
@@ -210,7 +220,49 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      <motion.section id="pricing" initial="hidden" animate="visible" variants={containerVariants} className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <motion.h1 variants={itemVariants} className="text-4xl font-extrabold text-center text-orange-600 mb-12">
+          Simple, Transparent Pricing
+        </motion.h1>
 
+        <motion.div variants={itemVariants} className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+          <div className="p-8">
+            <div className="flex items-center mb-6">
+              <div className="p-3 rounded-full bg-orange-100 text-orange-600 mr-4">
+                <FaCoins size={24} />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800">Free Trial</h2>
+            </div>
+            <p className="text-lg text-gray-600 ml-16">
+              Get <span className="font-semibold text-orange-600">15 free images</span> to generate and test our service.
+            </p>
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="p-8">
+            <div className="flex items-center mb-6">
+              <div className="p-3 rounded-full bg-orange-100 text-orange-600 mr-4">
+                <FaImage size={24} />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800">Pay As You Go</h2>
+            </div>
+            <p className="text-lg text-gray-600 ml-16 mb-4">
+              We charge <span className="font-semibold">$0.0026 per image</span> after your free trial.
+            </p>
+            <div className="flex items-center ml-16 mt-4">
+              <div className="p-2 rounded-full bg-orange-100 text-orange-600 mr-3">
+                <FaChartLine size={18} />
+              </div>
+              <p className="text-gray-600">Track your image count for each video in the dashboard under My Videos section.</p>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} className="mt-12 text-center text-gray-500 text-sm">
+          No hidden fees. Cancel anytime.
+        </motion.div>
+      </motion.section>
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-12 bg-gradient-to-r from-orange-600 to-amber-600">
         <div className="max-w-4xl mx-auto text-center">
@@ -382,49 +434,18 @@ const HomePage = () => {
               <h4 className="text-lg font-bold mb-4">Product</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a href="#how-it-works" className="text-gray-400 hover:text-white transition-colors">
                     Features
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a href="#pricing" className="text-gray-400 hover:text-white transition-colors">
                     Pricing
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <a href="/showcase" className="text-gray-400 hover:text-white transition-colors">
                     Examples
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    Updates
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-bold mb-4">Resources</h4>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    Tutorials
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    Support
                   </a>
                 </li>
               </ul>
@@ -436,11 +457,6 @@ const HomePage = () => {
                 <li>
                   <a href="#" className="text-gray-400 hover:text-white transition-colors">
                     About
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    Careers
                   </a>
                 </li>
                 <li>
@@ -465,9 +481,6 @@ const HomePage = () => {
               </a>
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 Terms of Service
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Cookies
               </a>
             </div>
           </div>
