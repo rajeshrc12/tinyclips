@@ -18,7 +18,7 @@ const DashboardPage = () => {
       <div className="w-full md:w-1/2 overflow-y-scroll relative user-input-scrollbar p-4">
         <UserInput handleImageStyle={handleImageStyle} />
       </div>
-      <div className="w-full md:w-1/2 flex justify-center items-center relative p-4">
+      <div className="hidden w-full md:w-1/2 md:flex justify-center items-center relative p-4">
         {loading && <Loader />}
         <div className={`relative w-auto h-full flex-1 ${loading ? "opacity-0" : "opacity-100 transition-opacity"}`}>
           <Image priority src={`/images/styles/${imageStyle}.png`} alt="Thumbnail" fill className="object-contain" onLoad={() => setLoading(false)} />

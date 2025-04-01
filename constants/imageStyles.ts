@@ -3,5 +3,4 @@ export const IMAGE_STYLES = {
   anime: "Anime Style",
   cartoon: "Cartoonish",
   cyberpunk: "Cyberpunk",
-  pencil: "Pencil Sketch",
 } as const;

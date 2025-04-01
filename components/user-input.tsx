@@ -20,6 +20,7 @@ import Loader from "./loader";
 import AudioPlayer from "./audio-player";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { VoiceName } from "@/types/user-input";
+import Image from "next/image";
 
 interface UserInputProps {
   handleImageStyle: (style: string) => void;
@@ -28,6 +29,8 @@ interface UserInputProps {
 const IMAGE_PRICE = parseFloat(process.env.NEXT_PUBLIC_IMAGE_PRICE!);
 
 const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
+  const [imageLoading, setImageLoading] = useState(true);
+
   const [globalAudio, setGlobalAudio] = useState<HTMLAudioElement | null>(null);
   const router = useRouter();
   const { data } = useSWR("/api/dashboard/user", fetcher, {
@@ -126,6 +129,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
                   defaultValue={"hyper"}
                   disabled={isBalanceEmpty || isSubmitting}
                   onValueChange={(e) => {
+                    setImageLoading(true);
                     handleImageStyle(e);
                     field.onChange(e);
                   }}
@@ -147,7 +151,12 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
               </FormItem>
             )}
           />
-
+          <div className="md:hidden w-full flex justify-center items-center relative p-4">
+            {imageLoading && <Loader />}
+            <div className={`relative w-auto h-[200px] flex-1 ${imageLoading ? "opacity-0" : "opacity-100 transition-opacity"}`}>
+              <Image priority src={`/images/styles/${form.getValues("imageStyle")}.png`} alt="Thumbnail" fill className="object-contain" onLoad={() => setImageLoading(false)} />
+            </div>
+          </div>
           <FormField
             control={form.control}
             name="voiceName"
@@ -209,14 +218,14 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
                 e.preventDefault();
                 router.push("/dashboard/overview");
               }}
-              className="sticky bottom-0 left-0 w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
+              className="md:sticky bottom-0 left-0 w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
             >
               Add balance
             </Button>
           ) : (
             <Button
               type="submit"
-              className="sticky bottom-0 left-0 w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
+              className="md:sticky bottom-0 left-0 w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
               disabled={isSubmitting}
             >
               {isSubmitting ? <div className="flex justify-center items-center">Submitting...</div> : "Submit"}
