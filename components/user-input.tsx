@@ -75,7 +75,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
       const response = await axios.post("/api/dashboard/video", data);
 
       if (response.status === 201) {
-        toast.success("Video creation added in queue");
+        toast.success("Your video has been added to the queue and will be ready in about 1-2 minutes.");
         router.push("/dashboard/video");
       } else {
         toast.error("Unexpected response from server");

@@ -12,6 +12,9 @@ import { fetcher } from "@/utils/api";
 import Loader from "@/components/loader";
 import { RotateCcw } from "lucide-react";
 import { toast } from "sonner";
+import { ImageStyle, VoiceName } from "@/types/user-input";
+import { IMAGE_STYLES } from "@/constants/imageStyles";
+import { VOICE_NAMES } from "@/constants/voiceNames";
 
 // Available page size options
 const PAGE_SIZE_OPTIONS = [3, 5, 10, 20];
@@ -57,7 +60,7 @@ const VideoPage = () => {
           variant="outline"
           onClick={() => {
             mutate();
-            toast.success("Videos refreshed");
+            toast.success("Videos refreshed. Your video will be ready in about 1-2 minutes.");
           }} // Refresh balance when clicked
           className="p-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
         >
@@ -86,12 +89,12 @@ const VideoPage = () => {
           <TableRow>
             <TableHead>Sr</TableHead>
             <TableHead>Script</TableHead>
+            <TableHead>Status</TableHead>
             <TableHead>Style</TableHead>
             <TableHead>Voice</TableHead>
             <TableHead>Speed</TableHead>
-            <TableHead>Status</TableHead>
             <TableHead>Images</TableHead>
-            <TableHead>Charges</TableHead>
+            <TableHead>Charges ($)</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -106,14 +109,14 @@ const VideoPage = () => {
             >
               <TableCell className="font-medium">{(currentPage - 1) * itemsPerPage + index + 1}</TableCell>
               <TableCell className="max-w-[200px] truncate">{video.prompt}</TableCell>
-              <TableCell>{video.imageStyle}</TableCell>
-              <TableCell>{video.voiceName}</TableCell>
-              <TableCell>{video.voiceSpeed}x</TableCell>
               <TableCell>
                 <Status status={video.imageCount === 0 ? "pending" : video.imageCount > 0 ? "successful" : "failed"} />
               </TableCell>
+              <TableCell>{IMAGE_STYLES[video.imageStyle as ImageStyle]}</TableCell>
+              <TableCell>{VOICE_NAMES[video.voiceName as VoiceName]}</TableCell>
+              <TableCell>{video.voiceSpeed}x</TableCell>
               <TableCell>{video.imageCount}</TableCell>
-              <TableCell>{(video.imageCount * IMAGE_PRICE).toFixed(4)}</TableCell>
+              <TableCell>{(video.imageCount * IMAGE_PRICE).toFixed(4)} $</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -121,7 +124,7 @@ const VideoPage = () => {
           <TableRow>
             <TableCell colSpan={6} className="font-semibold text-right"></TableCell>
             <TableCell className="font-bold">{data.videos.reduce((sum: number, video: Video) => sum + video.imageCount, 0)}</TableCell>
-            <TableCell className="font-bold">{data.videos.reduce((sum: number, video: Video) => sum + video.imageCount * IMAGE_PRICE, 0).toFixed(4)}</TableCell>
+            <TableCell className="font-bold">{data.videos.reduce((sum: number, video: Video) => sum + video.imageCount * IMAGE_PRICE, 0).toFixed(4)} $</TableCell>
           </TableRow>
         </TableFooter>
       </Table>

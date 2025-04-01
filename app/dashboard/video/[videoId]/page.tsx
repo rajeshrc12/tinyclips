@@ -29,18 +29,18 @@ const VideoDetailsPage = () => {
         </Link>
       </div>
       <main>
-        <div className="flex gap-6 justify-center">
+        <div className="flex flex-col sm:flex-row gap-6 justify-center">
           {/* Video Player Section (Left) */}
-          <div className="h-full w-[20vw]">
+          <div className="sm:w-[270px]">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="relative bg-black">
-                <video id="video-player" src={data?.url} controls />
+                <video id="video-player" className="h-full" src={data?.url} controls />
               </div>
             </div>
           </div>
 
           {/* Script & Details Section (Right) */}
-          <div className="lg:w-1/3">
+          <div className="sm:w-[270px]">
             <div className="bg-white rounded-lg shadow-md p-5 sticky top-6 h-full">
               <h2 className="text-lg font-semibold text-gray-800 mb-4">Video Details</h2>
 
@@ -58,7 +58,7 @@ const VideoDetailsPage = () => {
                 <div>
                   <h3 className="text-sm font-medium text-gray-700 mb-2">Full Script</h3>
                   <div className="relative">
-                    <textarea readOnly value={data?.prompt} className="w-full p-3 bg-gray-50 rounded border border-gray-200 text-sm text-gray-700 resize-none" rows={8} />
+                    <textarea readOnly value={data?.prompt} className="w-full p-3 bg-gray-50 rounded border border-gray-200 text-sm text-gray-700 resize-none" rows={10} />
                   </div>
                 </div>
               </div>
