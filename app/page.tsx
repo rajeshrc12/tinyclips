@@ -364,7 +364,7 @@ const HomePage = () => {
                   </div>
                   <div>
                     <h4 className="text-lg font-medium text-gray-900">Email</h4>
-                    <p className="text-gray-600">support@tinyclips.com</p>
+                    <p className="text-gray-600">admin@tinyclips.space</p>
                   </div>
                 </div>
 
@@ -381,7 +381,7 @@ const HomePage = () => {
                   </div>
                   <div>
                     <h4 className="text-lg font-medium text-gray-900">Phone</h4>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+91 7620591981</p>
                   </div>
                 </div>
 
@@ -394,7 +394,7 @@ const HomePage = () => {
                   </div>
                   <div>
                     <h4 className="text-lg font-medium text-gray-900">Address</h4>
-                    <p className="text-gray-600">123 AI Street, Tech City, TC 12345</p>
+                    <p className="text-gray-600">Maharashtra, India</p>
                   </div>
                 </div>
               </div>
