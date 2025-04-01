@@ -108,7 +108,10 @@ const VideoPage = () => {
               }}
             >
               <TableCell className="font-medium">{(currentPage - 1) * itemsPerPage + index + 1}</TableCell>
-              <TableCell className="max-w-[200px] truncate">{video.prompt}</TableCell>
+              <TableCell className="max-w-[200px]">
+                <div className="truncate font-medium text-gray-900 dark:text-gray-100">{video.prompt}</div>
+                {video.imageCount > 0 && <div className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 cursor-pointer">click to view</div>}
+              </TableCell>
               <TableCell>
                 <Status status={video.imageCount === 0 ? "pending" : video.imageCount > 0 ? "successful" : "failed"} />
               </TableCell>
