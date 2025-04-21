@@ -49,6 +49,7 @@ const ShowcasePage = () => {
               {/* Video Thumbnail */}
               <div className="relative h-full w-full">
                 <Image
+                  unoptimized
                   src={`${CLOUDFARE_R2_PUBLIC_BASE_URL}/image/${video}.png`}
                   alt={`Video ${index + 1}`}
                   fill

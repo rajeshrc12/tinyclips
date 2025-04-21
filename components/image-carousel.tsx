@@ -34,7 +34,7 @@ export default function ImageCarousel() {
         <SwiperSlide key={index} className="relative h-32 md:h-40 lg:h-48 rounded">
           <Link href={`/showcase`} className="relative block h-full">
             <div className="relative h-full">
-              <Image src={`${CLOUDFARE_R2_PUBLIC_BASE_URL}/image/${id}.png`} alt={`Slide ${index}`} height={600} width={300} priority={index < 3} />
+              <Image unoptimized src={`${CLOUDFARE_R2_PUBLIC_BASE_URL}/image/${id}.png`} alt={`Slide ${index}`} height={600} width={300} priority={index < 3} />
               {/* Play Button Overlay */}
               <div className="absolute inset-0 flex items-center justify-center transition">
                 <FaPlay className="text-white text-3xl md:text-4xl lg:text-5xl opacity-100 transition" />
