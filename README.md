@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Tinyclips - AI Short Video Generator  
 
-## Getting Started
+🔗 **GitHub Repo(Frontend):** [Tinyclips](https://github.com/rajeshrc12/tinyclips)  
+🔗 **GitHub Repo(Backend):** [Tinyclips-backend](https://github.com/rajeshrc12/tinyclips-backend)  
+🔗 **Live:** [tinyclips.space](https://tinyclips.space)  
 
-First, run the development server:
+## 🎬 How It Works  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1️⃣ **Enter your script** – Just paste your text.  
+2️⃣ **Select image style** – Choose from multiple artistic styles.  
+3️⃣ **Pick voiceover & speed** – Customize narration to your liking.  
+4️⃣ **Generate video** – Let AI handle the rest!  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Behind the Scenes  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- AI breaks down your script into segments, generates subtitles, and creates high-quality images for each part.  
+- Combines everything into a seamless video with **word-by-word subtitles** for maximum engagement.  
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 Tech Stack  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### **Frontend**  
+- **Next.js** (React 19)  
+- **Tailwind CSS**  
+- **ShadCN**  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### **Backend**  
+- **FastAPI**  
+- **Prisma**  
+- **PostgreSQL**  
 
-## Deploy on Vercel
+### **Authentication**  
+- **Google OAuth** (Auth.js)  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **AI Services**  
+- **Text-to-Speech:** Replicate  
+- **Image Generation:** Nebius  
+- **Transcription:** Assembly AI  
+- **LLMs:** Black Forest Labs Flux Schnell, Kokoro-82M, DeepSeek v3  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **Payments**  
+- **Razorpay** (UPI & Cards)  
+
+### **Media Processing**  
+- **MoviePy, FFmpeg**  
+
+### **Deployment**  
+- **Google Cloud Run**  
+
+### **Storage**  
+- **Wasabi**  
+
+---
+
+🔥 **Join the future of AI-generated short videos with Tinyclips!**
