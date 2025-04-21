@@ -9,7 +9,7 @@ const Navbar = () => {
     <div className="flex justify-around sm:justify-between items-center h-full px-2">
       <MobileSidebar />
       <Link href={"/"} className="flex items-center gap-2">
-        <Image src={"/images/logo.png"} height={30} width={30} alt="Logo.png" />
+        <Image unoptimized src={"/images/logo.png"} height={30} width={30} alt="Logo.png" />
         <span className="text-base font-bold">Tinyclips</span>
       </Link>
       <UserBalance />

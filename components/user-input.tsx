@@ -154,7 +154,7 @@ const UserInput: React.FC<UserInputProps> = ({ handleImageStyle }) => {
           <div className="md:hidden w-full flex justify-center items-center relative p-4">
             {imageLoading && <Loader />}
             <div className={`relative w-auto h-[200px] flex-1 ${imageLoading ? "opacity-0" : "opacity-100 transition-opacity"}`}>
-              <Image priority src={`/images/styles/${form.getValues("imageStyle")}.png`} alt="Thumbnail" fill className="object-contain" onLoad={() => setImageLoading(false)} />
+              <Image unoptimized priority src={`/images/styles/${form.getValues("imageStyle")}.png`} alt="Thumbnail" fill className="object-contain" onLoad={() => setImageLoading(false)} />
             </div>
           </div>
           <FormField
