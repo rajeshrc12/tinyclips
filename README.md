@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/52a00d8d-e518-44b6-bfab-2d0d4422843b
+
 # 🚀 Tinyclips - AI Short Video Generator  
 
 🔗 **GitHub Repo(Frontend):** [Tinyclips](https://github.com/rajeshrc12/tinyclips)  
